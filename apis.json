@@ -1,0 +1,63 @@
+{
+    "name": "Geocodio",
+    "description": "Hassle-free geocoding. Convert addresses into latitude\/longitude via API or spreadsheet upload. Add Congressional districts, timezones, and more.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/9098-geocodio.jpg",
+    "tags": [
+        "api provider",
+        "geo",
+        "have api",
+        "locations",
+        "target"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/geocodio\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Geocodio",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/9098-geocodio.jpg",
+            "humanURL": "http:\/\/geocod.io\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/geocodio-openapi.json"
+                },
+                {
+                    "type": "x-postman-collecction",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/geocodio-postman-collection.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Base",
+            "url": "https:\/\/api.geocod.io\/"
+        },
+        {
+            "type": "Developers",
+            "url": "http:\/\/geocod.io\/docs"
+        },
+        {
+            "type": "Email",
+            "url": "support@geocod.io"
+        },
+        {
+            "type": "Email",
+            "url": "hello@geocod.io"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/Geocodio"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/geocod.io\/"
+        }
+    ]
+}

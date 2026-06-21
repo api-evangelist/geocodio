@@ -1,0 +1,126 @@
+aid: geocodio
+url: https://raw.githubusercontent.com/api-evangelist/geocodio/refs/heads/main/apis.yml
+name: Geocodio
+kind: company
+description: Geocodio is a US and Canada geocoding API that converts addresses to
+  coordinates (forward), coordinates to addresses (reverse), processes batches and
+  spreadsheet lists, and enriches results with appended data such as congressional
+  and state legislative districts, census geographies, ACS demographics, school
+  districts, and timezones. Authentication is via an api_key query parameter and
+  the first 2,500 lookups per day are free.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Geocoding
+- Reverse Geocoding
+- Addresses
+- Data Append
+- Census
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: geocodio:forward-geocoding
+  name: Geocodio Forward Geocoding
+  tags:
+  - Geocoding
+  - Addresses
+  - Coordinates
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.geocod.io/docs/#geocoding
+  baseURL: https://api.geocod.io/v1.7
+  properties:
+  - url: https://www.geocod.io/docs/#geocoding
+    type: Documentation
+  - url: https://www.geocod.io/docs/
+    type: APIReference
+  - url: openapi/geocodio-openapi.yml
+    type: OpenAPI
+  description: Converts a single address (full string or components) into latitude
+    and longitude with normalized address components, accuracy score, and accuracy
+    type, optionally enriched with appended data fields.
+- aid: geocodio:reverse-geocoding
+  name: Geocodio Reverse Geocoding
+  tags:
+  - Reverse Geocoding
+  - Coordinates
+  - Addresses
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.geocod.io/docs/#reverse-geocoding
+  baseURL: https://api.geocod.io/v1.7
+  properties:
+  - url: https://www.geocod.io/docs/#reverse-geocoding
+    type: Documentation
+  - url: openapi/geocodio-openapi.yml
+    type: OpenAPI
+  description: Converts a single latitude and longitude coordinate pair into the
+    nearest matching street address, optionally enriched with appended data fields.
+- aid: geocodio:batch-geocoding
+  name: Geocodio Batch Geocoding
+  tags:
+  - Batch
+  - Geocoding
+  - Bulk
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.geocod.io/docs/#batch-geocoding
+  baseURL: https://api.geocod.io/v1.7
+  properties:
+  - url: https://www.geocod.io/docs/#batch-geocoding
+    type: Documentation
+  - url: openapi/geocodio-openapi.yml
+    type: OpenAPI
+  description: Geocodes or reverse geocodes up to 10,000 addresses or coordinates
+    in a single synchronous POST request using a JSON array or keyed JSON object.
+- aid: geocodio:data-appends
+  name: Geocodio Data Appends
+  tags:
+  - Data Append
+  - Census
+  - Congressional Districts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.geocod.io/docs/#fields
+  baseURL: https://api.geocod.io/v1.7
+  properties:
+  - url: https://www.geocod.io/docs/#fields
+    type: Documentation
+  - url: openapi/geocodio-openapi.yml
+    type: OpenAPI
+  description: Enriches geocoding and reverse geocoding results via the fields
+    parameter with congressional districts, state legislative districts, census
+    geographies and FIPS codes, ACS demographics, school districts, timezone,
+    ZIP+4, and Canadian electoral data; each requested field counts as an
+    additional lookup.
+- aid: geocodio:lists
+  name: Geocodio Lists
+  tags:
+  - Lists
+  - Spreadsheet
+  - Async
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.geocod.io/docs/#lists
+  baseURL: https://api.geocod.io/v1.7
+  properties:
+  - url: https://www.geocod.io/docs/#lists
+    type: Documentation
+  - url: openapi/geocodio-openapi.yml
+    type: OpenAPI
+  description: Asynchronously geocodes uploaded spreadsheet files (CSV, TSV, Excel)
+    as a list job, with endpoints to create, list, check status, download results,
+    and delete the job, plus optional webhook callbacks.
+common:
+- type: GitHubOrganization
+  url: https://github.com/Geocodio
+- type: LinkedIn
+  url: https://www.linkedin.com/company/geocodio
+- type: Website
+  url: https://www.geocod.io
+- type: Documentation
+  url: https://www.geocod.io/docs/
+- type: Plans
+  url: plans/geocodio-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/geocodio-rate-limits.yml
+- type: FinOps
+  url: finops/geocodio-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

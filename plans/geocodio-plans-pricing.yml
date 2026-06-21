@@ -1,0 +1,186 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Geocodio
+providerId: geocodio
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- Geocoding
+- Reverse Geocoding
+- Addresses
+- Data Append
+- Census
+- Plans
+description: >-
+  Geocodio uses a usage-based pricing model. Every Pay-as-you-go and Flex
+  account receives the first 2,500 lookups (credits) per day for free; these
+  do not roll over. Beyond the free allowance, lookups are billed at $1 per
+  1,000 lookups. Each requested data append field counts as an additional
+  lookup, so appending one field roughly doubles the lookup cost. Flex plans
+  are monthly subscriptions that bundle rolling credits at a discount, and an
+  Unlimited plan provides a dedicated, rate-limit-free instance.
+notes: >-
+  Representative rates as published on the Geocodio pricing page; verify the
+  page for the current tiers, credit bundles, and discounts.
+sources:
+- https://www.geocod.io/pricing/
+- https://www.geocod.io/docs/
+plans:
+- id: geocodio-pay-as-you-go
+  name: Pay-as-you-go
+  type: usage
+  description: >-
+    Metered lookups with no monthly minimum. First 2,500 lookups per day are
+    free; additional lookups billed per 1,000.
+  entries:
+  - label: Daily Free Lookups
+    name: free_daily_lookups
+    type: free
+    metric: lookups
+    limit: 2500
+    timeFrame: day
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  - label: Additional Lookups
+    name: lookups
+    type: usage
+    metric: lookups
+    limit: -1
+    timeFrame: day
+    geo: global
+    unit: 1000
+    price: $1 per 1,000 lookups
+    userMultiplied: false
+  - label: Data Append Field
+    name: data_append_field
+    type: usage
+    metric: lookups
+    limit: -1
+    timeFrame: day
+    geo: global
+    unit: 1
+    price: each requested field counts as one additional lookup
+    userMultiplied: false
+  elements:
+  - name: Forward Geocoding
+  - name: Reverse Geocoding
+  - name: Batch Geocoding
+  - name: Lists
+  - name: Data Appends
+- id: geocodio-flex
+  name: Flex
+  type: subscription
+  description: >-
+    Monthly self-serve subscription tiers bundling rolling credits at a
+    discount, with per-1,000 top-up rates and optional additional users.
+  entries:
+  - label: Flex 350
+    name: flex_350
+    type: flat
+    metric: credits
+    limit: 350000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $325/month (350,000 credits)
+    userMultiplied: false
+  - label: Flex 650
+    name: flex_650
+    type: flat
+    metric: credits
+    limit: 650000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $600/month (650,000 credits)
+    userMultiplied: false
+  - label: Flex 850
+    name: flex_850
+    type: flat
+    metric: credits
+    limit: 850000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $775/month (850,000 credits)
+    userMultiplied: false
+  - label: Top-up Credits
+    name: flex_topup
+    type: usage
+    metric: credits
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: $1 per 1,000 credits
+    userMultiplied: false
+  - label: Additional User
+    name: additional_user
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $250/month per additional user
+    userMultiplied: true
+  elements:
+  - name: Rolling Credits
+  - name: Forward Geocoding
+  - name: Reverse Geocoding
+  - name: Batch Geocoding
+  - name: Lists
+  - name: Data Appends
+- id: geocodio-unlimited
+  name: Unlimited
+  type: subscription
+  description: >-
+    Dedicated instance with no rate limiting for high-volume workloads.
+    North America coverage starts at $1,350/month; North America plus UK
+    starts at $1,600/month. Additional instances are $1,000/month each.
+  entries:
+  - label: Unlimited (North America)
+    name: unlimited_na
+    type: flat
+    metric: instance
+    limit: -1
+    timeFrame: month
+    geo: north-america
+    unit: 1
+    price: from $1,350/month ($15,390/year)
+    userMultiplied: false
+  - label: Unlimited (North America + UK)
+    name: unlimited_na_uk
+    type: flat
+    metric: instance
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: from $1,600/month ($16,890/year)
+    userMultiplied: false
+  - label: Additional Instance
+    name: additional_instance
+    type: flat
+    metric: instance
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $1,000/month per additional instance
+    userMultiplied: true
+  elements:
+  - name: Dedicated Instance
+  - name: No Rate Limiting
+  - name: Forward Geocoding
+  - name: Reverse Geocoding
+  - name: Batch Geocoding
+  - name: Lists
+  - name: Data Appends
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

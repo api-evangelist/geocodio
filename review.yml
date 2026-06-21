@@ -1,0 +1,67 @@
+aid: geocodio
+name: Geocodio
+review:
+  question: Does Geocodio expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Geocodio exposes only synchronous REST
+    (HTTPS) endpoints plus an asynchronous batch "lists" workflow that is
+    polled over REST and may notify completion via an HTTP webhook callback.
+    There is no streaming, Server-Sent Events, or WebSocket surface to model.
+findings:
+  summary: |
+    Geocodio does not publish a documented public WebSocket API. The platform
+    exposes only REST (HTTPS) endpoints under https://api.geocod.io/v1.7 for
+    forward geocoding, reverse geocoding, synchronous batch geocoding (up to
+    10,000 records per request), and asynchronous spreadsheet "lists" jobs.
+    List jobs are checked by polling a GET status endpoint and can optionally
+    POST an HTTP webhook callback on completion; this is not WebSocket and not
+    a persistent streaming transport. No realtime, bidirectional, or streaming
+    (ws:// or wss://) endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.geocod.io/v1.7
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Optional HTTP callback POSTed to a user-supplied URL when a list job completes. One-way HTTP, not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Geocodio API reference for geocoding, reverse geocoding, batch, or lists as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://api.geocod.io/v1.7/geocode
+    - POST https://api.geocod.io/v1.7/geocode
+    - GET  https://api.geocod.io/v1.7/reverse
+    - POST https://api.geocod.io/v1.7/reverse
+    - GET  https://api.geocod.io/v1.7/lists
+    - POST https://api.geocod.io/v1.7/lists
+    - GET  https://api.geocod.io/v1.7/lists/{id}
+    - GET  https://api.geocod.io/v1.7/lists/{id}/download
+    - DELETE https://api.geocod.io/v1.7/lists/{id}
+sources:
+  - url: https://www.geocod.io/docs/
+    type: Documentation
+    note: API reference lists REST base URL and api_key query authentication; no WebSocket mentioned.
+  - url: https://www.geocod.io/docs/#batch-geocoding
+    type: Documentation
+    note: Batch geocoding is a synchronous REST POST of up to 10,000 records; no streaming.
+  - url: https://www.geocod.io/docs/#lists
+    type: Documentation
+    note: List jobs are asynchronous but polled over REST with optional HTTP webhook callback; not WebSocket.
+  - url: https://www.geocod.io/pricing/
+    type: Pricing
+    note: Confirms usage-based per-lookup pricing and the 2,500/day free allowance.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or streaming protocol surface exists. Geocodio is a
+    request/response REST API; the only asynchronous workflow (lists) is
+    polled over REST with an optional HTTP webhook callback, which is out of
+    scope for AsyncAPI modeling. No AsyncAPI document was authored.

@@ -1,0 +1,64 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Geocodio
+providerId: geocodio
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Geocoding
+- Reverse Geocoding
+- Addresses
+- Data Append
+- Census
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Geocodio enforces a per-minute lookup rate limit and a daily free
+  allowance. Pay-as-you-go and Flex accounts receive 2,500 free lookups
+  per day and are limited to roughly 1,000 lookups per minute. The
+  Unlimited plan provisions a dedicated instance with no rate limiting,
+  scaling to roughly 3,333 lookups per minute (about 5,000,000 per day).
+  Batch and list endpoints process up to 10,000 records per request.
+notes: >-
+  Verify current per-minute limits and the daily free allowance on the
+  Geocodio pricing and documentation pages on reconciliation; limits vary
+  by plan.
+sources:
+- https://www.geocod.io/pricing/
+- https://www.geocod.io/docs/
+responseCodes:
+  throttled: 429
+limits:
+- name: Lookups Per Minute (Pay-as-you-go / Flex)
+  scope: account
+  metric: lookups
+  limit: 1000
+  notes: Approximately 1,000 lookups per minute on metered and Flex plans.
+- name: Daily Free Lookups
+  scope: account
+  metric: lookups
+  limit: 2500
+  notes: First 2,500 lookups per day are free and do not roll over.
+- name: Lookups Per Minute (Unlimited)
+  scope: account
+  metric: lookups
+  limit: 3333
+  notes: Dedicated Unlimited instance has no rate limiting; scales to ~3,333 lookups/minute (~5M/day).
+- name: Batch Size
+  scope: request
+  metric: records
+  limit: 10000
+  notes: Up to 10,000 addresses or coordinates per batch geocode or reverse request.
+policies:
+- name: Daily Free Allowance
+  description: 2,500 free lookups per day; unused free lookups do not carry over.
+- name: Field Appends Count As Lookups
+  description: Each requested data append field counts as an additional lookup against the rate limit and quota.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

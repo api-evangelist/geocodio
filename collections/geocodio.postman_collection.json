@@ -1,0 +1,501 @@
+{
+  "item": [
+    {
+      "id": "a1f0e7c2-0001-4a10-9c01-0000000000a1",
+      "name": "Forward Geocoding",
+      "description": {
+        "content": "Convert a single address into coordinates.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0e7c2-0001-4a10-9c01-0000000000a2",
+          "name": "Geocode a single address",
+          "request": {
+            "name": "Geocode a single address",
+            "description": {
+              "content": "Converts a single address into latitude and longitude. Each requested fields value counts as an additional lookup.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "geocode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "q",
+                  "value": "1109 N Highland St, Arlington VA"
+                },
+                {
+                  "key": "fields",
+                  "value": "cd,stateleg,census,timezone"
+                },
+                {
+                  "key": "limit",
+                  "value": "1"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "a1f0e7c2-0002-4a10-9c01-0000000000b1",
+      "name": "Reverse Geocoding",
+      "description": {
+        "content": "Convert a single coordinate into an address.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0e7c2-0002-4a10-9c01-0000000000b2",
+          "name": "Reverse geocode a single coordinate",
+          "request": {
+            "name": "Reverse geocode a single coordinate",
+            "description": {
+              "content": "Converts a single latitude,longitude pair into the nearest street address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "reverse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "q",
+                  "value": "38.9002898,-76.9990361"
+                },
+                {
+                  "key": "fields",
+                  "value": "timezone"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "a1f0e7c2-0003-4a10-9c01-0000000000c1",
+      "name": "Batch",
+      "description": {
+        "content": "Geocode or reverse geocode up to 10,000 records per request.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0e7c2-0003-4a10-9c01-0000000000c2",
+          "name": "Batch geocode addresses",
+          "request": {
+            "name": "Batch geocode addresses",
+            "description": {
+              "content": "Geocodes up to 10,000 addresses in a single request using a JSON array or keyed JSON object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "geocode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "fields",
+                  "value": "cd"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"1109 N Highland St, Arlington VA\",\n  \"525 University Ave, Toronto, ON, Canada\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1f0e7c2-0003-4a10-9c01-0000000000c3",
+          "name": "Batch reverse geocode coordinates",
+          "request": {
+            "name": "Batch reverse geocode coordinates",
+            "description": {
+              "content": "Reverse geocodes up to 10,000 coordinate pairs in a single request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "reverse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"35.9746000,-77.9658000\",\n  \"32.8793000,-96.6300000\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "a1f0e7c2-0004-4a10-9c01-0000000000d1",
+      "name": "Lists",
+      "description": {
+        "content": "Asynchronous spreadsheet geocoding jobs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0e7c2-0004-4a10-9c01-0000000000d2",
+          "name": "View all lists",
+          "request": {
+            "name": "View all lists",
+            "description": {
+              "content": "Returns all spreadsheet geocoding list jobs for the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "a1f0e7c2-0004-4a10-9c01-0000000000d3",
+          "name": "Create a list",
+          "request": {
+            "name": "Create a list",
+            "description": {
+              "content": "Uploads a spreadsheet file (CSV, TSV, Excel) to be geocoded asynchronously as a list job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "direction",
+                  "value": "forward",
+                  "type": "text"
+                },
+                {
+                  "key": "format",
+                  "value": "{{A}} {{B}} {{C}} {{D}}",
+                  "type": "text"
+                },
+                {
+                  "key": "callback",
+                  "value": "https://example.com/webhooks/geocodio",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a1f0e7c2-0004-4a10-9c01-0000000000d4",
+          "name": "Check list status",
+          "request": {
+            "name": "Check list status",
+            "description": {
+              "content": "Returns the status and metadata for a single list job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "lists",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1234"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "a1f0e7c2-0004-4a10-9c01-0000000000d5",
+          "name": "Download list results",
+          "request": {
+            "name": "Download list results",
+            "description": {
+              "content": "Downloads the completed, geocoded spreadsheet for a list job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "lists",
+                ":id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1234"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "a1f0e7c2-0004-4a10-9c01-0000000000d6",
+          "name": "Delete a list",
+          "request": {
+            "name": "Delete a list",
+            "description": {
+              "content": "Deletes a list job and its stored results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1.7",
+                "lists",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "api_key",
+                  "value": "{{apiKey}}"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1234"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.geocod.io",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "YOUR_API_KEY",
+      "key": "apiKey"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1f0e7c2-0000-4a10-9c01-000000000000",
+    "name": "Geocodio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Geocodio US and Canada geocoding API: forward geocoding, reverse geocoding, batch, lists, and data appends. Authenticated with an api_key query parameter.\n\nContact Support:\n Name: Geocodio Support\n Email: support@geocod.io",
+      "type": "text/plain"
+    }
+  }
+}

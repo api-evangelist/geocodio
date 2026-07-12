@@ -107,6 +107,14 @@ apis:
     as a list job, with endpoints to create, list, check status, download results,
     and delete the job, plus optional webhook callbacks.
 common:
+- type: TrustCenter
+  url: security/geocodio-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/geocodio-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/geocodio-domain-security.yml
+- type: Authentication
+  url: authentication/geocodio-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/Geocodio
 - type: LinkedIn
@@ -121,6 +129,8 @@ common:
   url: rate-limits/geocodio-rate-limits.yml
 - type: FinOps
   url: finops/geocodio-finops.yml
+- type: Blog
+  url: https://www.geocod.io/updates/rss.xml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

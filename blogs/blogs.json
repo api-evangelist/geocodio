@@ -1,0 +1,13 @@
+{
+  "repo": "geocodio",
+  "feeds": [
+    {
+      "source": "https://www.geocod.io/updates/rss.xml",
+      "feed_url": "https://www.geocod.io/updates/rss.xml",
+      "title": "Geocodio Updates",
+      "saved": 24
+    }
+  ],
+  "fetched": "2026-07-11T11:43:46Z",
+  "post_count": 49
+}

@@ -107,6 +107,8 @@ apis:
     as a list job, with endpoints to create, list, check status, download results,
     and delete the job, plus optional webhook callbacks.
 common:
+- type: AgenticAccess
+  url: agentic-access/geocodio-agentic-access.yml
 - type: TrustCenter
   url: security/geocodio-trust-center.yml
 - type: VulnerabilityDisclosure

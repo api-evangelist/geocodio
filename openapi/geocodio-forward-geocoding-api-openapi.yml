@@ -1,0 +1,191 @@
+openapi: 3.0.1
+info:
+  title: Geocodio Batch Forward Geocoding API
+  description: Geocodio is a US and Canada geocoding API for forward geocoding (address to coordinates), reverse geocoding (coordinates to address), batch geocoding of up to 10,000 records, asynchronous spreadsheet list jobs, and data appends that enrich results with congressional districts, state legislative districts, census geographies, ACS demographics, school districts, ZIP+4, timezone, and Canadian electoral data. Requests are authenticated with an api_key query parameter and the first 2,500 lookups per day are free.
+  termsOfService: https://www.geocod.io/terms-of-service/
+  contact:
+    name: Geocodio Support
+    email: support@geocod.io
+    url: https://www.geocod.io/contact/
+  version: '1.7'
+servers:
+- url: https://api.geocod.io/v1.7
+  description: Geocodio API v1.7
+security:
+- apiKeyQuery: []
+tags:
+- name: Forward Geocoding
+  description: Convert addresses into coordinates.
+paths:
+  /geocode:
+    get:
+      operationId: geocode
+      tags:
+      - Forward Geocoding
+      summary: Geocode a single address
+      description: Converts a single address into latitude and longitude. Provide a full address with the q parameter, or supply individual address components.
+      parameters:
+      - name: q
+        in: query
+        description: A full address to geocode, e.g. "1109 N Highland St, Arlington VA".
+        required: false
+        schema:
+          type: string
+      - name: street
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: city
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: postal_code
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: country
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Comma-separated list of data append fields, e.g. "cd,stateleg,census,timezone". Each field counts as an additional lookup.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return.
+        required: false
+        schema:
+          type: integer
+      - name: format
+        in: query
+        description: Set to "simple" for a streamlined response.
+        required: false
+        schema:
+          type: string
+          enum:
+          - simple
+      responses:
+        '200':
+          description: A geocoding result set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeocodeResponse'
+        '422':
+          description: Could not geocode the supplied address.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+          example: 1109 N Highland St, Arlington, VA 22201
+        location:
+          $ref: '#/components/schemas/Location'
+        accuracy:
+          type: number
+          format: float
+          description: Accuracy score between 0 and 1.
+          example: 1
+        accuracy_type:
+          type: string
+          description: How the match was determined.
+          example: rooftop
+        source:
+          type: string
+          example: Virginia GIS Clearinghouse
+        fields:
+          type: object
+          description: Appended data fields when requested via the fields parameter.
+          additionalProperties: true
+    AddressComponents:
+      type: object
+      properties:
+        number:
+          type: string
+          example: '1109'
+        predirectional:
+          type: string
+          example: N
+        street:
+          type: string
+          example: Highland
+        suffix:
+          type: string
+          example: St
+        formatted_street:
+          type: string
+          example: N Highland St
+        city:
+          type: string
+          example: Arlington
+        county:
+          type: string
+          example: Arlington County
+        state:
+          type: string
+          example: VA
+        zip:
+          type: string
+          example: '22201'
+        country:
+          type: string
+          example: US
+    Location:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+          example: 38.886665
+        lng:
+          type: number
+          format: double
+          example: -77.094733
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Could not geocode address. Postal code or city required.
+    Input:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+    GeocodeResponse:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Geocodio API key passed as the api_key query parameter.

@@ -1,0 +1,212 @@
+openapi: 3.0.1
+info:
+  title: Geocodio Batch Lists API
+  description: Geocodio is a US and Canada geocoding API for forward geocoding (address to coordinates), reverse geocoding (coordinates to address), batch geocoding of up to 10,000 records, asynchronous spreadsheet list jobs, and data appends that enrich results with congressional districts, state legislative districts, census geographies, ACS demographics, school districts, ZIP+4, timezone, and Canadian electoral data. Requests are authenticated with an api_key query parameter and the first 2,500 lookups per day are free.
+  termsOfService: https://www.geocod.io/terms-of-service/
+  contact:
+    name: Geocodio Support
+    email: support@geocod.io
+    url: https://www.geocod.io/contact/
+  version: '1.7'
+servers:
+- url: https://api.geocod.io/v1.7
+  description: Geocodio API v1.7
+security:
+- apiKeyQuery: []
+tags:
+- name: Lists
+  description: Asynchronous spreadsheet geocoding jobs.
+paths:
+  /lists:
+    get:
+      operationId: listLists
+      tags:
+      - Lists
+      summary: View all lists
+      description: Returns all spreadsheet geocoding list jobs for the account.
+      responses:
+        '200':
+          description: A paginated set of list jobs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCollection'
+    post:
+      operationId: createList
+      tags:
+      - Lists
+      summary: Create a list
+      description: Uploads a spreadsheet file (CSV, TSV, Excel) to be geocoded asynchronously as a list job.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateListRequest'
+      responses:
+        '200':
+          description: The created list job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List'
+  /lists/{id}:
+    get:
+      operationId: getList
+      tags:
+      - Lists
+      summary: Check list status
+      description: Returns the status and metadata for a single list job.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The list job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List'
+        '404':
+          description: List not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      operationId: deleteList
+      tags:
+      - Lists
+      summary: Delete a list
+      description: Deletes a list job and its stored results.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+  /lists/{id}/download:
+    get:
+      operationId: downloadList
+      tags:
+      - Lists
+      summary: Download list results
+      description: Downloads the completed, geocoded spreadsheet for a list job.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The geocoded spreadsheet file.
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+components:
+  schemas:
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    ListCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+        meta:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Could not geocode address. Postal code or city required.
+    CreateListRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The spreadsheet file to geocode (CSV, TSV, or Excel).
+        direction:
+          type: string
+          enum:
+          - forward
+          - reverse
+          description: Whether to forward or reverse geocode the list.
+        format:
+          type: string
+          description: Column template, e.g. "{{A}} {{B}} {{C}} {{D}}".
+        callback:
+          type: string
+          description: Optional webhook URL called when processing completes.
+        fields:
+          type: string
+          description: Comma-separated data append fields.
+      required:
+      - direction
+      - format
+    List:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1234
+        file:
+          type: object
+          properties:
+            headers:
+              type: array
+              items:
+                type: string
+            estimated_rows_count:
+              type: integer
+            filename:
+              type: string
+        status:
+          type: object
+          properties:
+            state:
+              type: string
+              example: PROCESSING
+            progress:
+              type: integer
+            message:
+              type: string
+            time_left_description:
+              type: string
+            download_url:
+              type: string
+        download_url:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Geocodio API key passed as the api_key query parameter.

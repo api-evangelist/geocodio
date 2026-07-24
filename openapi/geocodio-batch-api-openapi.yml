@@ -1,0 +1,202 @@
+openapi: 3.0.1
+info:
+  title: Geocodio Batch API
+  description: Geocodio is a US and Canada geocoding API for forward geocoding (address to coordinates), reverse geocoding (coordinates to address), batch geocoding of up to 10,000 records, asynchronous spreadsheet list jobs, and data appends that enrich results with congressional districts, state legislative districts, census geographies, ACS demographics, school districts, ZIP+4, timezone, and Canadian electoral data. Requests are authenticated with an api_key query parameter and the first 2,500 lookups per day are free.
+  termsOfService: https://www.geocod.io/terms-of-service/
+  contact:
+    name: Geocodio Support
+    email: support@geocod.io
+    url: https://www.geocod.io/contact/
+  version: '1.7'
+servers:
+- url: https://api.geocod.io/v1.7
+  description: Geocodio API v1.7
+security:
+- apiKeyQuery: []
+tags:
+- name: Batch
+  description: Geocode or reverse geocode up to 10,000 records per request.
+paths:
+  /geocode:
+    post:
+      operationId: batchGeocode
+      tags:
+      - Batch
+      summary: Batch geocode addresses
+      description: Geocodes up to 10,000 addresses in a single request. The body may be a JSON array of address strings or a JSON object keyed by your own identifiers.
+      parameters:
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchGeocodeRequest'
+      responses:
+        '200':
+          description: A batch geocoding result set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGeocodeResponse'
+  /reverse:
+    post:
+      operationId: batchReverse
+      tags:
+      - Batch
+      summary: Batch reverse geocode coordinates
+      description: Reverse geocodes up to 10,000 coordinate pairs in a single request. The body may be a JSON array of "lat,lng" strings or a JSON object keyed by your own identifiers.
+      parameters:
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchReverseRequest'
+      responses:
+        '200':
+          description: A batch reverse geocoding result set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGeocodeResponse'
+components:
+  schemas:
+    Result:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+          example: 1109 N Highland St, Arlington, VA 22201
+        location:
+          $ref: '#/components/schemas/Location'
+        accuracy:
+          type: number
+          format: float
+          description: Accuracy score between 0 and 1.
+          example: 1
+        accuracy_type:
+          type: string
+          description: How the match was determined.
+          example: rooftop
+        source:
+          type: string
+          example: Virginia GIS Clearinghouse
+        fields:
+          type: object
+          description: Appended data fields when requested via the fields parameter.
+          additionalProperties: true
+    AddressComponents:
+      type: object
+      properties:
+        number:
+          type: string
+          example: '1109'
+        predirectional:
+          type: string
+          example: N
+        street:
+          type: string
+          example: Highland
+        suffix:
+          type: string
+          example: St
+        formatted_street:
+          type: string
+          example: N Highland St
+        city:
+          type: string
+          example: Arlington
+        county:
+          type: string
+          example: Arlington County
+        state:
+          type: string
+          example: VA
+        zip:
+          type: string
+          example: '22201'
+        country:
+          type: string
+          example: US
+    BatchGeocodeRequest:
+      oneOf:
+      - type: array
+        items:
+          type: string
+        example:
+        - 1109 N Highland St, Arlington VA
+        - 525 University Ave, Toronto, ON, Canada
+      - type: object
+        additionalProperties:
+          type: string
+        example:
+          '1': 1109 N Highland St, Arlington VA
+          '2': 525 University Ave, Toronto, ON, Canada
+    BatchReverseRequest:
+      oneOf:
+      - type: array
+        items:
+          type: string
+        example:
+        - 35.9746000,-77.9658000
+        - 32.8793000,-96.6300000
+      - type: object
+        additionalProperties:
+          type: string
+    BatchGeocodeResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              query:
+                type: string
+              response:
+                $ref: '#/components/schemas/GeocodeResponse'
+    Location:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+          example: 38.886665
+        lng:
+          type: number
+          format: double
+          example: -77.094733
+    Input:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+    GeocodeResponse:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: api_key
+      description: Geocodio API key passed as the api_key query parameter.

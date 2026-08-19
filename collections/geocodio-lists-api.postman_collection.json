@@ -1,0 +1,616 @@
+{
+  "item": [
+    {
+      "id": "47a3246b-c9cd-4a5a-8c7d-0d8fef61fb36",
+      "name": "Lists",
+      "description": {
+        "content": "Asynchronous spreadsheet geocoding jobs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81db5a49-6dbd-41c1-87ab-1f80eb8d1ee6",
+          "name": "View all lists",
+          "request": {
+            "name": "View all lists",
+            "description": {
+              "content": "Returns all spreadsheet geocoding list jobs for the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f2f7874-639c-438e-878f-a40b7cad1cce",
+              "name": "A paginated set of list jobs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": 1234,\n      \"file\": {\n        \"headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"estimated_rows_count\": 9854,\n        \"filename\": \"string\"\n      },\n      \"status\": {\n        \"state\": \"PROCESSING\",\n        \"progress\": 6496,\n        \"message\": \"string\",\n        \"time_left_description\": \"string\",\n        \"download_url\": \"string\"\n      },\n      \"download_url\": \"string\",\n      \"expires_at\": \"2019-05-17T01:47:19.818Z\",\n      \"created_at\": \"1979-10-14T16:53:51.260Z\"\n    },\n    {\n      \"id\": 1234,\n      \"file\": {\n        \"headers\": [\n          \"string\",\n          \"string\"\n        ],\n        \"estimated_rows_count\": 1460,\n        \"filename\": \"string\"\n      },\n      \"status\": {\n        \"state\": \"PROCESSING\",\n        \"progress\": 6726,\n        \"message\": \"string\",\n        \"time_left_description\": \"string\",\n        \"download_url\": \"string\"\n      },\n      \"download_url\": \"string\",\n      \"expires_at\": \"2016-07-07T01:42:14.546Z\",\n      \"created_at\": \"1947-08-09T02:07:34.844Z\"\n    }\n  ],\n  \"meta\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f79690e-4771-48aa-a1a9-45481876fac3",
+          "name": "Create a list",
+          "request": {
+            "name": "Create a list",
+            "description": {
+              "content": "Uploads a spreadsheet file (CSV, TSV, Excel) to be geocoded asynchronously as a list job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "direction",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Whether to forward or reverse geocode the list. (This can only be one of forward,reverse)"
+                },
+                {
+                  "key": "format",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Column template, e.g. \"{{A}} {{B}} {{C}} {{D}}\"."
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "The spreadsheet file to geocode (CSV, TSV, or Excel)."
+                },
+                {
+                  "key": "callback",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Optional webhook URL called when processing completes."
+                },
+                {
+                  "key": "fields",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Comma-separated data append fields."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "81cd376c-1deb-43e6-aad0-002cc1e281a4",
+              "name": "The created list job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Whether to forward or reverse geocode the list. (This can only be one of forward,reverse)",
+                        "type": "text/plain"
+                      },
+                      "key": "direction",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Column template, e.g. \"{{A}} {{B}} {{C}} {{D}}\".",
+                        "type": "text/plain"
+                      },
+                      "key": "format",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The spreadsheet file to geocode (CSV, TSV, or Excel).",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional webhook URL called when processing completes.",
+                        "type": "text/plain"
+                      },
+                      "key": "callback",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Comma-separated data append fields.",
+                        "type": "text/plain"
+                      },
+                      "key": "fields",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1234,\n  \"file\": {\n    \"headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"estimated_rows_count\": 351,\n    \"filename\": \"string\"\n  },\n  \"status\": {\n    \"state\": \"PROCESSING\",\n    \"progress\": 1286,\n    \"message\": \"string\",\n    \"time_left_description\": \"string\",\n    \"download_url\": \"string\"\n  },\n  \"download_url\": \"string\",\n  \"expires_at\": \"1996-10-28T00:15:52.279Z\",\n  \"created_at\": \"1991-10-28T09:32:58.034Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f1aacd1-69ff-4ef2-bdd8-351e8ef0b02d",
+          "name": "Check list status",
+          "request": {
+            "name": "Check list status",
+            "description": {
+              "content": "Returns the status and metadata for a single list job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lists",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07652599-e437-4524-9068-7ff8f564304c",
+              "name": "The list job.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1234,\n  \"file\": {\n    \"headers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"estimated_rows_count\": 351,\n    \"filename\": \"string\"\n  },\n  \"status\": {\n    \"state\": \"PROCESSING\",\n    \"progress\": 1286,\n    \"message\": \"string\",\n    \"time_left_description\": \"string\",\n    \"download_url\": \"string\"\n  },\n  \"download_url\": \"string\",\n  \"expires_at\": \"1996-10-28T00:15:52.279Z\",\n  \"created_at\": \"1991-10-28T09:32:58.034Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a5f485e-7536-43d2-be96-496b29a93d59",
+              "name": "List not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Could not geocode address. Postal code or city required.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ef6e6223-347e-4a60-8e5d-1e1d5644af1e",
+          "name": "Delete a list",
+          "request": {
+            "name": "Delete a list",
+            "description": {
+              "content": "Deletes a list job and its stored results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lists",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6935b4e-6b35-4be6-b612-edd486c6695c",
+              "name": "Deletion confirmation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3eff986d-778f-4f1d-9b79-b7be968048de",
+          "name": "Download list results",
+          "request": {
+            "name": "Download list results",
+            "description": {
+              "content": "Downloads the completed, geocoded spreadsheet for a list job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "lists",
+                ":id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e9b625c-5e6f-4817-b7cc-53c794662768",
+              "name": "The geocoded spreadsheet file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "lists",
+                    ":id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.geocod.io/v1.7",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d72ce503-27ae-479c-8709-728af7059231",
+    "name": "Geocodio Batch Lists API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Geocodio is a US and Canada geocoding API for forward geocoding (address to coordinates), reverse geocoding (coordinates to address), batch geocoding of up to 10,000 records, asynchronous spreadsheet list jobs, and data appends that enrich results with congressional districts, state legislative districts, census geographies, ACS demographics, school districts, ZIP+4, timezone, and Canadian electoral data. Requests are authenticated with an api_key query parameter and the first 2,500 lookups per day are free.\n\nContact Support:\n Name: Geocodio Support\n Email: support@geocod.io",
+      "type": "text/plain"
+    }
+  }
+}

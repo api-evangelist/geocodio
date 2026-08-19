@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Geocodio Batch Reverse Geocoding API",
+    "version": "1.7"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reverse Geocoding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Reverse geocode a single coordinate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.geocod.io/v1.7/reverse",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "A latitude,longitude pair, e.g. \"38.9002898,-76.9990361\"."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Converts a single latitude,longitude pair into the nearest street address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

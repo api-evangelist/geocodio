@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Geocodio Batch Lists API",
+    "version": "1.7"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "View all lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.geocod.io/v1.7/lists"
+          },
+          "docs": "Returns all spreadsheet geocoding list jobs for the account."
+        },
+        {
+          "info": {
+            "name": "Create a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.geocod.io/v1.7/lists",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Uploads a spreadsheet file (CSV, TSV, Excel) to be geocoded asynchronously as a list job."
+        },
+        {
+          "info": {
+            "name": "Check list status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.geocod.io/v1.7/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the status and metadata for a single list job."
+        },
+        {
+          "info": {
+            "name": "Delete a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.geocod.io/v1.7/lists/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a list job and its stored results."
+        },
+        {
+          "info": {
+            "name": "Download list results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.geocod.io/v1.7/lists/:id/download",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Downloads the completed, geocoded spreadsheet for a list job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

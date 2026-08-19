@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Geocodio Batch API",
+    "version": "1.7"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Batch geocode addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.geocod.io/v1.7/geocode",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Geocodes up to 10,000 addresses in a single request. The body may be a JSON array of address strings or a JSON object keyed by your own identifiers."
+        },
+        {
+          "info": {
+            "name": "Batch reverse geocode coordinates",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.geocod.io/v1.7/reverse",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reverse geocodes up to 10,000 coordinate pairs in a single request. The body may be a JSON array of \"lat,lng\" strings or a JSON object keyed by your own identifiers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

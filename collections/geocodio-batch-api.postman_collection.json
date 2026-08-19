@@ -1,0 +1,261 @@
+{
+  "item": [
+    {
+      "id": "997d08dc-d06b-490d-ac7d-2f0f68b9e4ba",
+      "name": "Batch",
+      "description": {
+        "content": "Geocode or reverse geocode up to 10,000 records per request.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3c96d2b-a851-40c7-b3da-87d237fb10c7",
+          "name": "Batch geocode addresses",
+          "request": {
+            "name": "Batch geocode addresses",
+            "description": {
+              "content": "Geocodes up to 10,000 addresses in a single request. The body may be a JSON array of address strings or a JSON object keyed by your own identifiers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geocode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3374ab7-f508-4b71-b79c-b0bb364a34c7",
+              "name": "A batch geocoding result set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geocode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"1109 N Highland St, Arlington VA\",\n  \"525 University Ave, Toronto, ON, Canada\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"query\": \"string\",\n      \"response\": {\n        \"input\": {\n          \"address_components\": {\n            \"number\": \"1109\",\n            \"predirectional\": \"N\",\n            \"street\": \"Highland\",\n            \"suffix\": \"St\",\n            \"formatted_street\": \"N Highland St\",\n            \"city\": \"Arlington\",\n            \"county\": \"Arlington County\",\n            \"state\": \"VA\",\n            \"zip\": \"22201\",\n            \"country\": \"US\"\n          },\n          \"formatted_address\": \"string\"\n        },\n        \"results\": [\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": 9336.570937358087,\n              \"key_1\": 1319,\n              \"key_2\": \"string\"\n            }\n          },\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": 7215,\n              \"key_1\": true,\n              \"key_2\": 8254.566462980505\n            }\n          }\n        ]\n      }\n    },\n    {\n      \"query\": \"string\",\n      \"response\": {\n        \"input\": {\n          \"address_components\": {\n            \"number\": \"1109\",\n            \"predirectional\": \"N\",\n            \"street\": \"Highland\",\n            \"suffix\": \"St\",\n            \"formatted_street\": \"N Highland St\",\n            \"city\": \"Arlington\",\n            \"county\": \"Arlington County\",\n            \"state\": \"VA\",\n            \"zip\": \"22201\",\n            \"country\": \"US\"\n          },\n          \"formatted_address\": \"string\"\n        },\n        \"results\": [\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": \"string\"\n            }\n          },\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": true,\n              \"key_1\": 491.6554313966548\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "836a1260-533a-45b2-857e-5dad5ef6613f",
+          "name": "Batch reverse geocode coordinates",
+          "request": {
+            "name": "Batch reverse geocode coordinates",
+            "description": {
+              "content": "Reverse geocodes up to 10,000 coordinate pairs in a single request. The body may be a JSON array of \"lat,lng\" strings or a JSON object keyed by your own identifiers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "reverse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38402f7f-57f0-44ab-8cc5-f44a5b2818ed",
+              "name": "A batch reverse geocoding result set.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "reverse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"35.9746000,-77.9658000\",\n  \"32.8793000,-96.6300000\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"query\": \"string\",\n      \"response\": {\n        \"input\": {\n          \"address_components\": {\n            \"number\": \"1109\",\n            \"predirectional\": \"N\",\n            \"street\": \"Highland\",\n            \"suffix\": \"St\",\n            \"formatted_street\": \"N Highland St\",\n            \"city\": \"Arlington\",\n            \"county\": \"Arlington County\",\n            \"state\": \"VA\",\n            \"zip\": \"22201\",\n            \"country\": \"US\"\n          },\n          \"formatted_address\": \"string\"\n        },\n        \"results\": [\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": 1499,\n              \"key_1\": 890.6662234581697,\n              \"key_2\": \"string\"\n            }\n          },\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": \"string\",\n              \"key_1\": \"string\"\n            }\n          }\n        ]\n      }\n    },\n    {\n      \"query\": \"string\",\n      \"response\": {\n        \"input\": {\n          \"address_components\": {\n            \"number\": \"1109\",\n            \"predirectional\": \"N\",\n            \"street\": \"Highland\",\n            \"suffix\": \"St\",\n            \"formatted_street\": \"N Highland St\",\n            \"city\": \"Arlington\",\n            \"county\": \"Arlington County\",\n            \"state\": \"VA\",\n            \"zip\": \"22201\",\n            \"country\": \"US\"\n          },\n          \"formatted_address\": \"string\"\n        },\n        \"results\": [\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": \"string\",\n              \"key_1\": 4059\n            }\n          },\n          {\n            \"address_components\": {\n              \"number\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"predirectional\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"suffix\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"formatted_street\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"city\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"county\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"state\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"zip\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"country\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"formatted_address\": \"1109 N Highland St, Arlington, VA 22201\",\n            \"location\": {\n              \"lat\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lng\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"accuracy\": 1,\n            \"accuracy_type\": \"rooftop\",\n            \"source\": \"Virginia GIS Clearinghouse\",\n            \"fields\": {\n              \"key_0\": \"string\"\n            }\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.geocod.io/v1.7",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "api_key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ad3fc5e4-f878-45d9-9ead-53a16ad21058",
+    "name": "Geocodio Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Geocodio is a US and Canada geocoding API for forward geocoding (address to coordinates), reverse geocoding (coordinates to address), batch geocoding of up to 10,000 records, asynchronous spreadsheet list jobs, and data appends that enrich results with congressional districts, state legislative districts, census geographies, ACS demographics, school districts, ZIP+4, timezone, and Canadian electoral data. Requests are authenticated with an api_key query parameter and the first 2,500 lookups per day are free.\n\nContact Support:\n Name: Geocodio Support\n Email: support@geocod.io",
+      "type": "text/plain"
+    }
+  }
+}

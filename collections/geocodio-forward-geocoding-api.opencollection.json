@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Geocodio Batch Forward Geocoding API",
+    "version": "1.7"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Forward Geocoding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Geocode a single address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.geocod.io/v1.7/geocode",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "A full address to geocode, e.g. \"1109 N Highland St, Arlington VA\"."
+              },
+              {
+                "name": "street",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "postal_code",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of data append fields, e.g. \"cd,stateleg,census,timezone\". Each field counts as an additional lookup."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Set to \"simple\" for a streamlined response."
+              }
+            ]
+          },
+          "docs": "Converts a single address into latitude and longitude. Provide a full address with the q parameter, or supply individual address components."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -82,6 +82,8 @@ apis:
   humanURL: https://www.geocod.io/docs/#geocoding
   baseURL: https://api.geocod.io/v1.7
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI

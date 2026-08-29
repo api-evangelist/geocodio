@@ -8,6 +8,18 @@ description: Geocodio is a US and Canada geocoding API that converts addresses t
   and state legislative districts, census geographies, ACS demographics, school
   districts, and timezones. Authentication is via an api_key query parameter and
   the first 2,500 lookups per day are free.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve

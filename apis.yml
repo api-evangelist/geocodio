@@ -2,12 +2,7 @@ aid: geocodio
 url: https://raw.githubusercontent.com/api-evangelist/geocodio/refs/heads/main/apis.yml
 name: Geocodio
 kind: company
-description: Geocodio is a US and Canada geocoding API that converts addresses to
-  coordinates (forward), coordinates to addresses (reverse), processes batches and
-  spreadsheet lists, and enriches results with appended data such as congressional
-  and state legislative districts, census geographies, ACS demographics, school
-  districts, and timezones. Authentication is via an api_key query parameter and
-  the first 2,500 lookups per day are free.
+description: Geocodio is a US and Canada geocoding API that converts addresses to coordinates (forward), coordinates to addresses (reverse), processes batches and spreadsheet lists, and enriches results with appended data such as congressional and state legislative districts, census geographies, ACS demographics, school districts, and timezones. Authentication is via an api_key query parameter and the first 2,500 lookups per day are free.
 deliveryModel:
   model: saas
   open_source: false
@@ -135,6 +130,15 @@ apis:
     url: https://www.geocod.io/docs/#fields
   - type: Documentation
     url: https://www.geocod.io/docs/#lists
+- name: Geocod.io
+  description: Address geocoding / reverse geocoding in bulk
+  humanURL: https://www.geocod.io/
+  baseURL: https://www.geocod.io/
+  tags:
+  - Geocoding
+  properties:
+  - type: Documentation
+    url: https://www.geocod.io/
 common:
 - type: AgenticAccess
   url: agentic-access/geocodio-agentic-access.yml

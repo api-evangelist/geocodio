@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Geocodio Batch Lists API
-  description: Geocodio is a US and Canada geocoding API for forward geocoding (address to coordinates), reverse geocoding (coordinates to address), batch geocoding of up to 10,000 records, asynchronous spreadsheet list jobs, and data appends that enrich results with congressional districts, state legislative districts, census geographies, ACS demographics, school districts, ZIP+4, timezone, and Canadian electoral data. Requests are authenticated with an api_key query parameter and the first 2,500 lookups per day are free.
+  title: Geocodio Lists API
+  description: Geocodio is a US and Canada geocoding API for forward geocoding (address to coordinates), reverse geocoding (coordinates to address), batch geocoding of up to 10,000 records, asynchronous spreadsheet list jobs, and data appends that enrich results with congressional districts, state legislative districts, census geographies, ACS demographics, school districts, ZIP+4, timezone, and Canadian electoral data.
   termsOfService: https://www.geocod.io/terms-of-service/
   contact:
     name: Geocodio Support
@@ -118,12 +118,12 @@ paths:
                 format: binary
 components:
   schemas:
-    DeleteResponse:
+    Error:
       type: object
       properties:
-        success:
-          type: boolean
-          example: true
+        error:
+          type: string
+          example: Could not geocode address. Postal code or city required.
     ListCollection:
       type: object
       properties:
@@ -134,37 +134,6 @@ components:
         meta:
           type: object
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Could not geocode address. Postal code or city required.
-    CreateListRequest:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          description: The spreadsheet file to geocode (CSV, TSV, or Excel).
-        direction:
-          type: string
-          enum:
-          - forward
-          - reverse
-          description: Whether to forward or reverse geocode the list.
-        format:
-          type: string
-          description: Column template, e.g. "{{A}} {{B}} {{C}} {{D}}".
-        callback:
-          type: string
-          description: Optional webhook URL called when processing completes.
-        fields:
-          type: string
-          description: Comma-separated data append fields.
-      required:
-      - direction
-      - format
     List:
       type: object
       properties:
@@ -204,6 +173,37 @@ components:
         created_at:
           type: string
           format: date-time
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    CreateListRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The spreadsheet file to geocode (CSV, TSV, or Excel).
+        direction:
+          type: string
+          enum:
+          - forward
+          - reverse
+          description: Whether to forward or reverse geocode the list.
+        format:
+          type: string
+          description: Column template, e.g. "{{A}} {{B}} {{C}} {{D}}".
+        callback:
+          type: string
+          description: Optional webhook URL called when processing completes.
+        fields:
+          type: string
+          description: Comma-separated data append fields.
+      required:
+      - direction
+      - format
   securitySchemes:
     apiKeyQuery:
       type: apiKey

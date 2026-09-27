@@ -118,22 +118,6 @@ paths:
                 format: binary
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Could not geocode address. Postal code or city required.
-    ListCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/List'
-        meta:
-          type: object
-          additionalProperties: true
     List:
       type: object
       properties:
@@ -173,6 +157,12 @@ components:
         created_at:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Could not geocode address. Postal code or city required.
     DeleteResponse:
       type: object
       properties:
@@ -204,6 +194,16 @@ components:
       required:
       - direction
       - format
+    ListCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+        meta:
+          type: object
+          additionalProperties: true
   securitySchemes:
     apiKeyQuery:
       type: apiKey

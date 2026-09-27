@@ -102,6 +102,33 @@ components:
         error:
           type: string
           example: Could not geocode address. Postal code or city required.
+    GeocodeResponse:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+    Input:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+    Location:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+          example: 38.886665
+        lng:
+          type: number
+          format: double
+          example: -77.094733
     Result:
       type: object
       properties:
@@ -128,33 +155,6 @@ components:
           type: object
           description: Appended data fields when requested via the fields parameter.
           additionalProperties: true
-    Location:
-      type: object
-      properties:
-        lat:
-          type: number
-          format: double
-          example: 38.886665
-        lng:
-          type: number
-          format: double
-          example: -77.094733
-    Input:
-      type: object
-      properties:
-        address_components:
-          $ref: '#/components/schemas/AddressComponents'
-        formatted_address:
-          type: string
-    GeocodeResponse:
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/Input'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
   securitySchemes:
     apiKeyQuery:
       type: apiKey

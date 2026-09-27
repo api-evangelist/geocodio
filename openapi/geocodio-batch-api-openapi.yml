@@ -71,20 +71,6 @@ paths:
                 $ref: '#/components/schemas/BatchGeocodeResponse'
 components:
   schemas:
-    BatchGeocodeRequest:
-      oneOf:
-      - type: array
-        items:
-          type: string
-        example:
-        - 1109 N Highland St, Arlington VA
-        - 525 University Ave, Toronto, ON, Canada
-      - type: object
-        additionalProperties:
-          type: string
-        example:
-          '1': 1109 N Highland St, Arlington VA
-          '2': 525 University Ave, Toronto, ON, Canada
     AddressComponents:
       type: object
       properties:
@@ -118,6 +104,56 @@ components:
         country:
           type: string
           example: US
+    BatchGeocodeResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              query:
+                type: string
+              response:
+                $ref: '#/components/schemas/GeocodeResponse'
+    GeocodeResponse:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+    BatchReverseRequest:
+      oneOf:
+      - type: array
+        items:
+          type: string
+        example:
+        - 35.9746000,-77.9658000
+        - 32.8793000,-96.6300000
+      - type: object
+        additionalProperties:
+          type: string
+    Input:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+    Location:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: double
+          example: 38.886665
+        lng:
+          type: number
+          format: double
+          example: -77.094733
     Result:
       type: object
       properties:
@@ -144,56 +180,20 @@ components:
           type: object
           description: Appended data fields when requested via the fields parameter.
           additionalProperties: true
-    Location:
-      type: object
-      properties:
-        lat:
-          type: number
-          format: double
-          example: 38.886665
-        lng:
-          type: number
-          format: double
-          example: -77.094733
-    Input:
-      type: object
-      properties:
-        address_components:
-          $ref: '#/components/schemas/AddressComponents'
-        formatted_address:
-          type: string
-    GeocodeResponse:
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/Input'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-    BatchReverseRequest:
+    BatchGeocodeRequest:
       oneOf:
       - type: array
         items:
           type: string
         example:
-        - 35.9746000,-77.9658000
-        - 32.8793000,-96.6300000
+        - 1109 N Highland St, Arlington VA
+        - 525 University Ave, Toronto, ON, Canada
       - type: object
         additionalProperties:
           type: string
-    BatchGeocodeResponse:
-      type: object
-      properties:
-        results:
-          type: array
-          items:
-            type: object
-            properties:
-              query:
-                type: string
-              response:
-                $ref: '#/components/schemas/GeocodeResponse'
+        example:
+          '1': 1109 N Highland St, Arlington VA
+          '2': 525 University Ave, Toronto, ON, Canada
   securitySchemes:
     apiKeyQuery:
       type: apiKey

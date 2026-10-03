@@ -71,6 +71,62 @@ paths:
                 $ref: '#/components/schemas/BatchGeocodeResponse'
 components:
   schemas:
+    Input:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+    BatchGeocodeRequest:
+      oneOf:
+      - type: array
+        items:
+          type: string
+        example:
+        - 1109 N Highland St, Arlington VA
+        - 525 University Ave, Toronto, ON, Canada
+      - type: object
+        additionalProperties:
+          type: string
+        example:
+          '1': 1109 N Highland St, Arlington VA
+          '2': 525 University Ave, Toronto, ON, Canada
+    GeocodeResponse:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/Input'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Result'
+    Result:
+      type: object
+      properties:
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        formatted_address:
+          type: string
+          example: 1109 N Highland St, Arlington, VA 22201
+        location:
+          $ref: '#/components/schemas/Location'
+        accuracy:
+          type: number
+          format: float
+          description: Accuracy score between 0 and 1.
+          example: 1
+        accuracy_type:
+          type: string
+          description: How the match was determined.
+          example: rooftop
+        source:
+          type: string
+          example: Virginia GIS Clearinghouse
+        fields:
+          type: object
+          description: Appended data fields when requested via the fields parameter.
+          additionalProperties: true
     AddressComponents:
       type: object
       properties:
@@ -116,33 +172,6 @@ components:
                 type: string
               response:
                 $ref: '#/components/schemas/GeocodeResponse'
-    GeocodeResponse:
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/Input'
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Result'
-    BatchReverseRequest:
-      oneOf:
-      - type: array
-        items:
-          type: string
-        example:
-        - 35.9746000,-77.9658000
-        - 32.8793000,-96.6300000
-      - type: object
-        additionalProperties:
-          type: string
-    Input:
-      type: object
-      properties:
-        address_components:
-          $ref: '#/components/schemas/AddressComponents'
-        formatted_address:
-          type: string
     Location:
       type: object
       properties:
@@ -154,46 +183,17 @@ components:
           type: number
           format: double
           example: -77.094733
-    Result:
-      type: object
-      properties:
-        address_components:
-          $ref: '#/components/schemas/AddressComponents'
-        formatted_address:
-          type: string
-          example: 1109 N Highland St, Arlington, VA 22201
-        location:
-          $ref: '#/components/schemas/Location'
-        accuracy:
-          type: number
-          format: float
-          description: Accuracy score between 0 and 1.
-          example: 1
-        accuracy_type:
-          type: string
-          description: How the match was determined.
-          example: rooftop
-        source:
-          type: string
-          example: Virginia GIS Clearinghouse
-        fields:
-          type: object
-          description: Appended data fields when requested via the fields parameter.
-          additionalProperties: true
-    BatchGeocodeRequest:
+    BatchReverseRequest:
       oneOf:
       - type: array
         items:
           type: string
         example:
-        - 1109 N Highland St, Arlington VA
-        - 525 University Ave, Toronto, ON, Canada
+        - 35.9746000,-77.9658000
+        - 32.8793000,-96.6300000
       - type: object
         additionalProperties:
           type: string
-        example:
-          '1': 1109 N Highland St, Arlington VA
-          '2': 525 University Ave, Toronto, ON, Canada
   securitySchemes:
     apiKeyQuery:
       type: apiKey

@@ -118,53 +118,6 @@ paths:
                 format: binary
 components:
   schemas:
-    CreateListRequest:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          description: The spreadsheet file to geocode (CSV, TSV, or Excel).
-        direction:
-          type: string
-          enum:
-          - forward
-          - reverse
-          description: Whether to forward or reverse geocode the list.
-        format:
-          type: string
-          description: Column template, e.g. "{{A}} {{B}} {{C}} {{D}}".
-        callback:
-          type: string
-          description: Optional webhook URL called when processing completes.
-        fields:
-          type: string
-          description: Comma-separated data append fields.
-      required:
-      - direction
-      - format
-    DeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Could not geocode address. Postal code or city required.
-    ListCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/List'
-        meta:
-          type: object
-          additionalProperties: true
     List:
       type: object
       properties:
@@ -204,6 +157,53 @@ components:
         created_at:
           type: string
           format: date-time
+    DeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Could not geocode address. Postal code or city required.
+    CreateListRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The spreadsheet file to geocode (CSV, TSV, or Excel).
+        direction:
+          type: string
+          enum:
+          - forward
+          - reverse
+          description: Whether to forward or reverse geocode the list.
+        format:
+          type: string
+          description: Column template, e.g. "{{A}} {{B}} {{C}} {{D}}".
+        callback:
+          type: string
+          description: Optional webhook URL called when processing completes.
+        fields:
+          type: string
+          description: Comma-separated data append fields.
+      required:
+      - direction
+      - format
+    ListCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+        meta:
+          type: object
+          additionalProperties: true
   securitySchemes:
     apiKeyQuery:
       type: apiKey

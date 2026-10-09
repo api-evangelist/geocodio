@@ -19,3 +19,38 @@ tools_note: No tool list captured. This manifest records a PROBED, reachable end
   not perform. Run signals/audit_mcp_authorship.py --probe to enumerate tools and settle platform-vs-provider
   authorship. Do NOT derive a tool list from the OpenAPI and store it here -- that is a candidate manifest,
   and it belongs under an X-MCPServerCandidate pointer.
+rfc9728:
+  endpoint: https://www.geocod.io/mcp/statamic
+  metadata_url: https://www.geocod.io/.well-known/oauth-protected-resource/mcp/statamic
+  discovered_via: WWW-Authenticate resource_metadata on an anonymous POST initialize
+  fetched: '2026-09-25'
+  http_status: 200
+  content_type: application/json
+  document:
+    resource: https://www.geocod.io/mcp/statamic
+    authorization_servers:
+    - https://www.geocod.io
+    scopes_supported:
+    - '*'
+    - content:read
+    - content:write
+    - structures:read
+    - structures:write
+    - assets:read
+    - assets:write
+    - users:read
+    - users:write
+    - system:read
+    - system:write
+    - blueprints:read
+    - blueprints:write
+    - entries:read
+    - entries:write
+    - terms:read
+    - terms:write
+    - globals:read
+    - globals:write
+    - content-facade:read
+    - content-facade:write
+    bearer_methods_supported:
+    - header

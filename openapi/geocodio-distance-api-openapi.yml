@@ -1,0 +1,1948 @@
+openapi: 3.2.0
+info:
+  title: Geocodio Distance API
+  description: 'Geocodio''s RESTful API allows you to perform forward and reverse geocoding lookups. We support both batch requests as well as individual lookups.
+
+
+    You can also optionally ask for data appends such as timezone, Congressional districts or similar things of that nature.'
+  termsOfService: https://www.geocod.io/terms-of-use/
+  license:
+    name: Geocodio Terms of Use
+    url: https://www.geocod.io/terms-of-use/
+  contact:
+    email: hello@geocod.io
+  version: '2.0'
+servers:
+- url: https://api.geocod.io/v2
+  description: Self-Serve Geocodio API Endpoint
+- url: https://api.enterprise.geocod.io/v2
+  description: Geocodio API Endpoint for Enterprise Customers
+tags:
+- name: Distance
+  description: Calculate distances between one origin and one or more destinations
+paths:
+  /distance:
+    get:
+      tags:
+      - Distance
+      summary: Calculate distance from one origin to multiple destinations
+      operationId: distanceSingle
+      parameters:
+      - name: origin
+        in: query
+        schema:
+          type: string
+        required: true
+      - name: destinations[]
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 100
+        required: true
+      - name: mode
+        in: query
+        schema:
+          type: string
+          enum:
+          - driving
+          - haversine
+          - straightline
+      - name: units
+        in: query
+        schema:
+          type: string
+          enum:
+          - miles
+          - km
+      - name: max_results
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+      - name: max_distance
+        in: query
+        schema:
+          type: number
+          minimum: 0
+      - name: max_duration
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+      - name: order_by
+        in: query
+        schema:
+          type: string
+          enum:
+          - distance
+          - duration
+      - name: min_distance
+        in: query
+        schema:
+          type: number
+          minimum: 0
+      - name: min_duration
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+      - name: sort_order
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: country
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistanceResponse'
+              examples:
+                address-to-addresses:
+                  summary: Distance from address to addresses -- full combo of geocode and distance
+                  value:
+                    origin:
+                      location:
+                      - 38.886672
+                      - -77.094735
+                      geocode:
+                        stable_address_key: gcod_usndjrg9xn28uz888u3fkm6yusrdg
+                        address_components:
+                          number: '1109'
+                          predirectional: N
+                          street: Highland
+                          suffix: St
+                          formatted_street: N Highland St
+                          city: Arlington
+                          county: Arlington County
+                          state_province: VA
+                          postal_code: '22201'
+                          country: US
+                        address_lines:
+                        - 1109 N Highland St
+                        - ''
+                        - Arlington, VA 22201
+                        formatted_address: 1109 N Highland St, Arlington, VA 22201
+                        location:
+                          lat: 38.886672
+                          lng: -77.094735
+                        accuracy: 1
+                        accuracy_type: rooftop
+                        match_type: building_centroid
+                        source: Arlington
+                    mode: straightline
+                    destinations:
+                    - query: 1600 Pennsylvania Ave, Washington DC
+                      location:
+                      - 38.897675
+                      - -77.036547
+                      id: null
+                      distance_miles: 3.2
+                      distance_km: 5.2
+                      geocode:
+                        stable_address_key: gcod_usnqu2qtyk7ac38dlpzanec598p2c
+                        address_components:
+                          number: '1600'
+                          street: Pennsylvania
+                          suffix: Ave
+                          postdirectional: NW
+                          formatted_street: Pennsylvania Ave NW
+                          city: Washington
+                          county: District of Columbia
+                          state_province: DC
+                          postal_code: '20500'
+                          country: US
+                        address_lines:
+                        - 1600 Pennsylvania Ave NW
+                        - ''
+                        - Washington, DC 20500
+                        formatted_address: 1600 Pennsylvania Ave NW, Washington, DC 20500
+                        location:
+                          lat: 38.897675
+                          lng: -77.036547
+                        accuracy: 1
+                        accuracy_type: rooftop
+                        match_type: null
+                        source: Statewide (City of Washington)
+                    - query: 725 8th St SE, Washington DC
+                      location:
+                      - 38.880394
+                      - -76.99533
+                      id: null
+                      distance_miles: 5.4
+                      distance_km: 8.6
+                      geocode:
+                        stable_address_key: gcod_usn9uwkqf9al2kecx449lhvue4mac
+                        address_components:
+                          number: '725'
+                          street: 8th
+                          suffix: St
+                          postdirectional: SE
+                          formatted_street: 8th St SE
+                          city: Washington
+                          county: District of Columbia
+                          state_province: DC
+                          postal_code: '20003'
+                          country: US
+                        address_lines:
+                        - 725 8th St SE
+                        - ''
+                        - Washington, DC 20003
+                        formatted_address: 725 8th St SE, Washington, DC 20003
+                        location:
+                          lat: 38.880394
+                          lng: -76.99533
+                        accuracy: 1
+                        accuracy_type: rooftop
+                        match_type: null
+                        source: Statewide (City of Washington)
+                driving-multiple:
+                  summary: Driving distance to multiple destinations (populates duration_seconds)
+                  value:
+                    origin:
+                      location:
+                      - 38.8977
+                      - -77.0365
+                    mode: driving
+                    destinations:
+                    - query: 38.9072,-77.0369,Capitol
+                      location:
+                      - 38.9072
+                      - -77.0369
+                      id: Capitol
+                      distance_miles: 1
+                      distance_km: 1.7
+                      duration_seconds: 216
+                    - query: 38.8814,-77.0916,Pentagon
+                      location:
+                      - 38.8814
+                      - -77.0916
+                      id: Pentagon
+                      distance_miles: 3.9
+                      distance_km: 6.2
+                      duration_seconds: 542
+                driving:
+                  summary: Driving distance and duration between coordinates
+                  value:
+                    origin:
+                      location:
+                      - 38.8977
+                      - -77.0365
+                    mode: driving
+                    destinations:
+                    - query: 38.9072,-77.0369
+                      location:
+                      - 38.9072
+                      - -77.0369
+                      id: null
+                      distance_miles: 1
+                      distance_km: 1.7
+                      duration_seconds: 216
+                from-address:
+                  summary: Distance from an address origin (triggers geocoding of the origin)
+                  value:
+                    origin:
+                      location:
+                      - 38.886672
+                      - -77.094735
+                      geocode:
+                        stable_address_key: gcod_usndjrg9xn28uz888u3fkm6yusrdg
+                        address_components:
+                          number: '1109'
+                          predirectional: N
+                          street: Highland
+                          suffix: St
+                          formatted_street: N Highland St
+                          city: Arlington
+                          county: Arlington County
+                          state_province: VA
+                          postal_code: '22201'
+                          country: US
+                        address_lines:
+                        - 1109 N Highland St
+                        - ''
+                        - Arlington, VA 22201
+                        formatted_address: 1109 N Highland St, Arlington, VA 22201
+                        location:
+                          lat: 38.886672
+                          lng: -77.094735
+                        accuracy: 1
+                        accuracy_type: rooftop
+                        match_type: building_centroid
+                        source: Arlington
+                    mode: straightline
+                    destinations:
+                    - query: 38.8977,-77.0365
+                      location:
+                      - 38.8977
+                      - -77.0365
+                      id: null
+                      distance_miles: 3.2
+                      distance_km: 5.2
+                straightline-multiple:
+                  summary: Straightline distance to multiple coordinate destinations
+                  value:
+                    origin:
+                      location:
+                      - 38.8977
+                      - -77.0365
+                    mode: straightline
+                    destinations:
+                    - query: 38.9072,-77.0369,Capitol
+                      location:
+                      - 38.9072
+                      - -77.0369
+                      id: Capitol
+                      distance_miles: 0.7
+                      distance_km: 1.1
+                    - query: 38.8814,-77.0916,Pentagon
+                      location:
+                      - 38.8814
+                      - -77.0916
+                      id: Pentagon
+                      distance_miles: 3.2
+                      distance_km: 5.1
+                straightline:
+                  summary: Straightline (Haversine) distance between two coordinates
+                  value:
+                    origin:
+                      location:
+                      - 38.8977
+                      - -77.0365
+                    mode: straightline
+                    destinations:
+                    - query: 38.9072,-77.0369
+                      location:
+                      - 38.9072
+                      - -77.0369
+                      id: null
+                      distance_miles: 0.7
+                      distance_km: 1.1
+                to-addresses:
+                  summary: Distance to address destinations (triggers geocoding of each destination)
+                  value:
+                    origin:
+                      location:
+                      - 38.8977
+                      - -77.0365
+                    mode: straightline
+                    destinations:
+                    - query: 1600 Pennsylvania Ave, Washington DC
+                      location:
+                      - 38.897675
+                      - -77.036547
+                      id: null
+                      distance_miles: 0
+                      distance_km: 0
+                      geocode:
+                        stable_address_key: gcod_usnqu2qtyk7ac38dlpzanec598p2c
+                        address_components:
+                          number: '1600'
+                          street: Pennsylvania
+                          suffix: Ave
+                          postdirectional: NW
+                          formatted_street: Pennsylvania Ave NW
+                          city: Washington
+                          county: District of Columbia
+                          state_province: DC
+                          postal_code: '20500'
+                          country: US
+                        address_lines:
+                        - 1600 Pennsylvania Ave NW
+                        - ''
+                        - Washington, DC 20500
+                        formatted_address: 1600 Pennsylvania Ave NW, Washington, DC 20500
+                        location:
+                          lat: 38.897675
+                          lng: -77.036547
+                        accuracy: 1
+                        accuracy_type: rooftop
+                        match_type: null
+                        source: Statewide (City of Washington)
+                    - query: 725 8th St SE, Washington DC
+                      location:
+                      - 38.880394
+                      - -76.99533
+                      id: null
+                      distance_miles: 2.5
+                      distance_km: 4.1
+                      geocode:
+                        stable_address_key: gcod_usn9uwkqf9al2kecx449lhvue4mac
+                        address_components:
+                          number: '725'
+                          street: 8th
+                          suffix: St
+                          postdirectional: SE
+                          formatted_street: 8th St SE
+                          city: Washington
+                          county: District of Columbia
+                          state_province: DC
+                          postal_code: '20003'
+                          country: US
+                        address_lines:
+                        - 725 8th St SE
+                        - ''
+                        - Washington, DC 20003
+                        formatted_address: 725 8th St SE, Washington, DC 20003
+                        location:
+                          lat: 38.880394
+                          lng: -76.99533
+                        accuracy: 1
+                        accuracy_type: rooftop
+                        match_type: null
+                        source: Statewide (City of Washington)
+                with-ids:
+                  summary: Destinations tagged with custom ids (lat,lon,id format) -- ids are echoed back on each result for correlation
+                  value:
+                    origin:
+                      location:
+                      - 38.8977
+                      - -77.0365
+                    mode: straightline
+                    destinations:
+                    - query: 38.9072,-77.0369,capitol
+                      location:
+                      - 38.9072
+                      - -77.0369
+                      id: capitol
+                      distance_miles: 0.7
+                      distance_km: 1.1
+                    - query: 38.8814,-77.0916,pentagon
+                      location:
+                      - 38.8814
+                      - -77.0916
+                      id: pentagon
+                      distance_miles: 3.2
+                      distance_km: 5.1
+        '422':
+          description: Validation error.
+        '403':
+          description: Invalid API key, or feature not available.
+      security:
+      - geocodioApiKey: []
+components:
+  schemas:
+    Economics:
+      type: object
+      properties:
+        Number of households:
+          $ref: '#/components/schemas/GenderBreakdown'
+        Median household income:
+          $ref: '#/components/schemas/GenderBreakdown'
+        Household income:
+          $ref: '#/components/schemas/HouseholdIncome'
+        Per capita income:
+          $ref: '#/components/schemas/GenderBreakdown'
+        meta:
+          $ref: '#/components/schemas/AcsCategoryMeta'
+    Ffiec:
+      type: object
+      properties:
+        collection_year:
+          type: integer
+        msa_md_code:
+          type: string
+        fips_state_code:
+          type: string
+        fips_county_code:
+          type: string
+        census_tract:
+          type: string
+        principal_city:
+          type: boolean
+        small_county:
+          $ref: '#/components/schemas/SmallCounty'
+        split_tract:
+          $ref: '#/components/schemas/SmallCounty'
+        demographic_data:
+          $ref: '#/components/schemas/SmallCounty'
+        urban_rural_flag:
+          $ref: '#/components/schemas/SmallCounty'
+        msa_md_median_family_income:
+          type: integer
+        msa_md_median_household_income:
+          type: integer
+        tract_median_family_income_percentage:
+          type: number
+          format: float
+        ffiec_estimated_msa_md_median_family_income:
+          type: integer
+        income_indicator:
+          type: string
+        cra_poverty_criteria:
+          type: boolean
+        cra_unemployment_criteria:
+          type: boolean
+        cra_distressed_criteria:
+          type: boolean
+        cra_remote_rural_low_density_criteria:
+          type: boolean
+        previous_year_cra_distressed_criteria:
+          type: boolean
+        previous_year_cra_underserved_criterion:
+          type: boolean
+        meets_current_previous_criteria:
+          type: boolean
+        tract_minority_population_percentage:
+          type:
+          - number
+          - 'null'
+          format: float
+    DistanceMatrixCell:
+      type: object
+      properties:
+        query:
+          type: string
+        location:
+          type: array
+          items:
+            type: number
+            format: float
+        id:
+          type:
+          - string
+          - 'null'
+        distance_miles:
+          type: number
+          format: float
+        distance_km:
+          type: number
+          format: float
+        geocode:
+          $ref: '#/components/schemas/GeocodingResult'
+        duration_seconds:
+          type: integer
+    AcsStatistic:
+      type: object
+      properties:
+        value:
+          type: number
+        margin_of_error:
+          type: number
+        percentage:
+          type: number
+    HouseholdTypeByHousehold:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Family households:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Family households: Married-couple family':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Family households: Other family':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Family households: Other family: Male householder, no spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Family households: Other family: Female householder, no spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        Nonfamily households:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Nonfamily households: Householder living alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Nonfamily households: Householder not living alone':
+          $ref: '#/components/schemas/AcsStatistic'
+    Families:
+      type: object
+      properties:
+        Household type by household:
+          $ref: '#/components/schemas/HouseholdTypeByHousehold'
+        Household type by population:
+          $ref: '#/components/schemas/HouseholdTypeByPopulation'
+        Marital status:
+          $ref: '#/components/schemas/MaritalStatus'
+        Family Type by Presence and Age of Own Children Under 18 Years:
+          $ref: '#/components/schemas/FamilyTypeByPresenceAndAgeOfOwnChildrenUnder18Years'
+        Average Household Size of Occupied Housing Units by Tenure:
+          $ref: '#/components/schemas/AverageHouseholdSizeOfOccupiedHousingUnitsByTenure'
+        Own Children Under 18 Years by Family Type and Age:
+          $ref: '#/components/schemas/OwnChildrenUnder18YearsByFamilyTypeAndAge'
+        meta:
+          $ref: '#/components/schemas/AcsCategoryMeta'
+    References:
+      type: object
+      properties:
+        bioguide_id:
+          type: string
+        thomas_id:
+          type: string
+        opensecrets_id:
+          type: string
+        lis_id:
+          type:
+          - string
+          - 'null'
+        cspan_id:
+          type: string
+        govtrack_id:
+          type: string
+        votesmart_id:
+          type: string
+        ballotpedia_id:
+          type: string
+        washington_post_id:
+          type:
+          - string
+          - 'null'
+        icpsr_id:
+          type:
+          - string
+          - 'null'
+        wikipedia_id:
+          type: string
+        openstates_id:
+          type: string
+    UKCensus:
+      type: object
+      properties:
+        output_area:
+          $ref: '#/components/schemas/UKCensusOutputArea'
+        lsoa_data_zone:
+          $ref: '#/components/schemas/UKCensusGeography'
+        msoa_intermediate_zone:
+          $ref: '#/components/schemas/UKCensusMsoaIntermediateZone'
+        local_authority_district:
+          $ref: '#/components/schemas/UKCensusGeography'
+        built_up_area:
+          $ref: '#/components/schemas/UKCensusGeography'
+        travel_to_work_area:
+          $ref: '#/components/schemas/UKCensusTravelToWorkArea'
+        international_territorial_level:
+          $ref: '#/components/schemas/UKCensusInternationalTerritorialLevel'
+        rural_urban_classification:
+          $ref: '#/components/schemas/UKCensusRuralUrbanClassification'
+    FieldAppends:
+      type: object
+      properties:
+        congressional_districts:
+          type: array
+          items:
+            $ref: '#/components/schemas/CongressionalDistricts'
+        timezone:
+          $ref: '#/components/schemas/Timezone'
+        census:
+          $ref: '#/components/schemas/Census'
+        acs:
+          $ref: '#/components/schemas/Acs'
+        ffiec:
+          $ref: '#/components/schemas/Ffiec'
+        school_districts:
+          type: object
+          properties:
+            unified:
+              $ref: '#/components/schemas/Unified'
+        state_legislative_districts:
+          $ref: '#/components/schemas/StateLegislativeDistricts'
+        uk_census:
+          $ref: '#/components/schemas/UKCensus'
+        uk_devolved:
+          type: array
+          items:
+            $ref: '#/components/schemas/UKLegislativeDistrict'
+        uk_local:
+          type: array
+          items:
+            $ref: '#/components/schemas/UKLegislativeDistrict'
+        uk_westminster:
+          type: array
+          items:
+            $ref: '#/components/schemas/UKLegislativeDistrict'
+        zip4:
+          $ref: '#/components/schemas/Zip4'
+    OwnChildrenUnder18YearsByFamilyTypeAndAge:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        In married-couple families:
+          $ref: '#/components/schemas/AcsStatistic'
+        'In married-couple families: Under 3 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In married-couple families: 3 and 4 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In married-couple families: 5 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In married-couple families: 6 to 11 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In married-couple families: 12 to 17 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        In other families:
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Male householder, no spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Male householder, no spouse present: Under 3 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Male householder, no spouse present: 3 and 4 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Male householder, no spouse present: 5 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Male householder, no spouse present: 6 to 11 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Male householder, no spouse present: 12 to 17 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Female householder, no spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Female householder, no spouse present: Under 3 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Female householder, no spouse present: 3 and 4 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Female householder, no spouse present: 5 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Female householder, no spouse present: 6 to 11 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In other families: Female householder, no spouse present: 12 to 17 years':
+          $ref: '#/components/schemas/AcsStatistic'
+    Housing:
+      type: object
+      properties:
+        Number of housing units:
+          $ref: '#/components/schemas/GenderBreakdown'
+        Occupancy status:
+          $ref: '#/components/schemas/OccupancyStatus'
+        Ownership of occupied units:
+          $ref: '#/components/schemas/OwnershipOfOccupiedUnits'
+        Units in structure:
+          $ref: '#/components/schemas/UnitsInStructure'
+        Median value of owner-occupied housing units:
+          $ref: '#/components/schemas/GenderBreakdown'
+        Value of owner-occupied housing units:
+          $ref: '#/components/schemas/ValueOfOwnerOccupiedHousingUnits'
+        meta:
+          $ref: '#/components/schemas/AcsCategoryMeta'
+    Unified:
+      type: object
+      properties:
+        name:
+          type: string
+        lea_code:
+          type: string
+        grade_low:
+          type: string
+        grade_high:
+          type: string
+    UKCensusMsoaIntermediateZone:
+      type: object
+      properties:
+        name:
+          type: string
+        alternative_name:
+          type:
+          - string
+          - 'null'
+        gss_code:
+          type: string
+        type:
+          type: string
+        vintage:
+          type: string
+        source:
+          type: string
+    CurrentLegislator:
+      type: object
+      properties:
+        type:
+          type: string
+        seniority:
+          type:
+          - string
+          - 'null'
+        bio:
+          $ref: '#/components/schemas/Bio'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        social:
+          $ref: '#/components/schemas/LegislatorSocial'
+        references:
+          $ref: '#/components/schemas/References'
+        source:
+          type: string
+    Acs:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsAppendMeta'
+        demographics:
+          $ref: '#/components/schemas/Demographics'
+        economics:
+          $ref: '#/components/schemas/Economics'
+        families:
+          $ref: '#/components/schemas/Families'
+        housing:
+          $ref: '#/components/schemas/Housing'
+        social:
+          $ref: '#/components/schemas/AcsSocialData'
+    DistanceDestination:
+      type: object
+      properties:
+        query:
+          type: string
+        location:
+          type: array
+          items:
+            type: number
+            format: float
+        distance_miles:
+          type: number
+        distance_km:
+          type: number
+          format: float
+        duration_seconds:
+          type:
+          - integer
+          - 'null'
+        id:
+          type:
+          - string
+          - 'null'
+        geocode:
+          $ref: '#/components/schemas/GeocodingResult'
+    UKCensusTravelToWorkArea:
+      type: object
+      properties:
+        name:
+          type: string
+        gss_code:
+          type: string
+        vintage:
+          type: string
+        source:
+          type: string
+    DistanceResponse:
+      type: object
+      properties:
+        origin:
+          $ref: '#/components/schemas/DistanceOrigin'
+        mode:
+          type: string
+        destinations:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistanceMatrixCell'
+    Contact:
+      type: object
+      properties:
+        url:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        contact_form:
+          type:
+          - string
+          - 'null'
+        email:
+          type: string
+    CongressionalDistricts:
+      type: object
+      properties:
+        name:
+          type: string
+        district_number:
+          type: integer
+        ocd_id:
+          type: string
+        congress_number:
+          type: string
+        congress_years:
+          type: string
+        proportion:
+          type: integer
+        current_legislators:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentLegislator'
+    Demographics:
+      type: object
+      properties:
+        Median age:
+          $ref: '#/components/schemas/GenderBreakdown'
+        Population by age range:
+          $ref: '#/components/schemas/PopulationByAgeRange'
+        Sex:
+          $ref: '#/components/schemas/GenderBreakdown'
+        Race and ethnicity:
+          $ref: '#/components/schemas/RaceAndEthnicity'
+        meta:
+          $ref: '#/components/schemas/AcsCategoryMeta'
+    NestedGeocodingResult:
+      type: object
+      properties:
+        stable_address_key:
+          type: string
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        address_lines:
+          type: array
+          items:
+            type: string
+        formatted_address:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        accuracy:
+          type: number
+          format: float
+        accuracy_type:
+          type: string
+        match_type:
+          type: string
+        source:
+          type: string
+    AcsAppendMeta:
+      type: object
+      properties:
+        source:
+          type: string
+        survey_years:
+          type: string
+        survey_duration_years:
+          type: string
+    PeriodOfMilitaryServiceForVeterans:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Gulf War (9/2001 or later), no Gulf War (8/1990 to 8/2001), no Vietnam War:
+          $ref: '#/components/schemas/AcsStatistic'
+        Gulf War (9/2001 or later) and Gulf War (8/1990 to 8/2001), no Vietnam War:
+          $ref: '#/components/schemas/AcsStatistic'
+        Gulf War (9/2001 or later), and Gulf War (8/1990 to 8/2001), and Vietnam War:
+          $ref: '#/components/schemas/AcsStatistic'
+        Gulf War (8/1990 to 8/2001), no Vietnam War:
+          $ref: '#/components/schemas/AcsStatistic'
+        Gulf War (8/1990 to 8/2001) and Vietnam War:
+          $ref: '#/components/schemas/AcsStatistic'
+        Vietnam War, no Korean War, no World War II:
+          $ref: '#/components/schemas/AcsStatistic'
+        Vietnam War and Korean War, no World War II:
+          $ref: '#/components/schemas/AcsStatistic'
+        Vietnam War and Korean War and World War II:
+          $ref: '#/components/schemas/AcsStatistic'
+        Korean War, no Vietnam War, no World War II:
+          $ref: '#/components/schemas/AcsStatistic'
+        Korean War and World War II, no Vietnam War:
+          $ref: '#/components/schemas/AcsStatistic'
+        World War II, no Korean War, no Vietnam War:
+          $ref: '#/components/schemas/AcsStatistic'
+        Between Gulf War and Vietnam War only:
+          $ref: '#/components/schemas/AcsStatistic'
+        Between Vietnam War and Korean War only:
+          $ref: '#/components/schemas/AcsStatistic'
+        Between Korean War and World War II only:
+          $ref: '#/components/schemas/AcsStatistic'
+        Pre-World War II only:
+          $ref: '#/components/schemas/AcsStatistic'
+    PopulationByMinimumLevelOfEducation:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Male:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: No schooling completed':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Nursery to 4th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 5th and 6th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 7th and 8th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 9th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 10th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 11th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 12th grade, no diploma':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: High school graduate (includes equivalency)':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Some college, less than 1 year':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Some college, 1 or more years, no degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Associate''s degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Bachelor''s degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Master''s degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Professional school degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Doctorate degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        Female:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: No schooling completed':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Nursery to 4th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 5th and 6th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 7th and 8th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 9th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 10th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 11th grade':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 12th grade, no diploma':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: High school graduate (includes equivalency)':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Some college, less than 1 year':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Some college, 1 or more years, no degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Associate''s degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Bachelor''s degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Master''s degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Professional school degree':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Doctorate degree':
+          $ref: '#/components/schemas/AcsStatistic'
+    CountySubdivision:
+      type: object
+      properties:
+        name:
+          type: string
+        fips:
+          type: string
+        fips_class:
+          $ref: '#/components/schemas/FipsClass'
+    OwnershipOfOccupiedUnits:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Owner occupied:
+          $ref: '#/components/schemas/AcsStatistic'
+        Renter occupied:
+          $ref: '#/components/schemas/AcsStatistic'
+    Place:
+      type: object
+      properties:
+        name:
+          type: string
+        fips:
+          type: string
+    UKCensusInternationalTerritorialLevel:
+      type: object
+      properties:
+        level_1:
+          $ref: '#/components/schemas/UKCensusInternationalTerritorialLevelArea'
+        level_2:
+          $ref: '#/components/schemas/UKCensusInternationalTerritorialLevelArea'
+        level_3:
+          $ref: '#/components/schemas/UKCensusInternationalTerritorialLevelArea'
+        vintage:
+          type: string
+        source:
+          type: string
+    HouseholdTypeByPopulation:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        In family households:
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In married-couple family':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In married-couple family: Relatives':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In married-couple family: Nonrelatives':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In male householder, no spouse present, family':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In male householder, no spouse present, family: Relatives':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In male householder, no spouse present, family: Nonrelatives':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In female householder, no spouse present, family':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In female householder, no spouse present, family: Relatives':
+          $ref: '#/components/schemas/AcsStatistic'
+        'In family households: In female householder, no spouse present, family: Nonrelatives':
+          $ref: '#/components/schemas/AcsStatistic'
+        In nonfamily households:
+          $ref: '#/components/schemas/AcsStatistic'
+    UKCensusOutputArea:
+      type:
+      - object
+      - 'null'
+      properties:
+        gss_code:
+          type: string
+        type:
+          type: string
+        vintage:
+          type: string
+        source:
+          type: string
+    Warnings:
+      type: array
+      items:
+        type: string
+      description: Non-fatal advisories about the request — an unrecognized parameter or field name, a superseded API version, or an append that was skipped. Present only when at least one warning was raised.
+    FipsClass:
+      type: object
+      properties:
+        class_code:
+          type: string
+        description:
+          type: string
+    Census:
+      type: object
+      properties:
+        '2024':
+          $ref: '#/components/schemas/CensusGeography'
+        '2025':
+          $ref: '#/components/schemas/CensusGeography'
+    UKCensusGeography:
+      type: object
+      properties:
+        name:
+          type: string
+        gss_code:
+          type: string
+        type:
+          type: string
+        vintage:
+          type: string
+        source:
+          type: string
+    RecordType:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+    CarrierRoute:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+    StateLegislativeDistricts:
+      type: object
+      properties:
+        house:
+          type: array
+          items:
+            $ref: '#/components/schemas/House'
+        senate:
+          type: array
+          items:
+            $ref: '#/components/schemas/House'
+    PopulationByAgeRange:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Male:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Under 5 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 5 to 9 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 10 to 14 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 15 to 17 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 18 and 19 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 20 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 21 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 22 to 24 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 25 to 29 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 30 to 34 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 35 to 39 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 40 to 44 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 45 to 49 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 50 to 54 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 55 to 59 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 60 and 61 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 62 to 64 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 65 and 66 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 67 to 69 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 70 to 74 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 75 to 79 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 80 to 84 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 85 years and over':
+          $ref: '#/components/schemas/AcsStatistic'
+        Female:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Under 5 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 5 to 9 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 10 to 14 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 15 to 17 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 18 and 19 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 20 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 21 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 22 to 24 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 25 to 29 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 30 to 34 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 35 to 39 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 40 to 44 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 45 to 49 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 50 to 54 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 55 to 59 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 60 and 61 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 62 to 64 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 65 and 66 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 67 to 69 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 70 to 74 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 75 to 79 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 80 to 84 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 85 years and over':
+          $ref: '#/components/schemas/AcsStatistic'
+    Bio:
+      type: object
+      properties:
+        last_name:
+          type: string
+        first_name:
+          type: string
+        birthday:
+          type:
+          - string
+          - 'null'
+        gender:
+          type: string
+        party:
+          type: string
+        photo_url:
+          type: string
+        photo_attribution:
+          type: string
+    AcsTableMeta:
+      type: object
+      properties:
+        table_id:
+          type: string
+        universe:
+          type: string
+    Zip4:
+      type: object
+      properties:
+        record_type:
+          $ref: '#/components/schemas/RecordType'
+        residential:
+          type: boolean
+        carrier_route:
+          $ref: '#/components/schemas/CarrierRoute'
+        building_or_firm_name:
+          type:
+          - string
+          - 'null'
+        plus4:
+          type: array
+          items:
+            type: string
+        zip9:
+          type: array
+          items:
+            type: string
+        government_building:
+          type:
+          - string
+          - 'null'
+        facility_code:
+          $ref: '#/components/schemas/RecordType'
+        city_delivery:
+          type: boolean
+        valid_delivery_area:
+          type: boolean
+        exact_match:
+          type: boolean
+    ValueOfOwnerOccupiedHousingUnits:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Less than $10,000:
+          $ref: '#/components/schemas/AcsStatistic'
+        $10,000 to $14,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $15,000 to $19,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $20,000 to $24,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $25,000 to $29,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $30,000 to $34,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $35,000 to $39,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $40,000 to $49,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $50,000 to $59,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $60,000 to $69,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $70,000 to $79,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $80,000 to $89,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $90,000 to $99,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $100,000 to $124,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $125,000 to $149,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $150,000 to $174,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $175,000 to $199,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $200,000 to $249,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $250,000 to $299,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $300,000 to $399,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $400,000 to $499,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $500,000 to $749,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $750,000 to $999,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $1,000,000 to $1,499,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $1,500,000 to $1,999,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $2,000,000 or more:
+          $ref: '#/components/schemas/AcsStatistic'
+    HouseholdIncome:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Less than $10,000:
+          $ref: '#/components/schemas/AcsStatistic'
+        $10,000 to $14,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $15,000 to $19,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $20,000 to $24,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $25,000 to $29,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $30,000 to $34,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $35,000 to $39,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $40,000 to $44,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $45,000 to $49,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $50,000 to $59,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $60,000 to $74,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $75,000 to $99,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $100,000 to $124,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $125,000 to $149,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $150,000 to $199,999:
+          $ref: '#/components/schemas/AcsStatistic'
+        $200,000 or more:
+          $ref: '#/components/schemas/AcsStatistic'
+    House:
+      type: object
+      properties:
+        name:
+          type: string
+        district_number:
+          type: string
+        ocd_id:
+          type: string
+        is_upcoming_state_legislative_district:
+          type: boolean
+        proportion:
+          type: integer
+        current_legislators:
+          type: array
+          items:
+            $ref: '#/components/schemas/CurrentLegislator'
+    CombinedStatisticalArea:
+      type: object
+      properties:
+        name:
+          type: string
+        area_code:
+          type: string
+    MetroMicroStatisticalArea:
+      type: object
+      properties:
+        name:
+          type: string
+        area_code:
+          type: string
+        type:
+          type: string
+    GeocodingResult:
+      type: object
+      properties:
+        stable_address_key:
+          type:
+          - string
+          - 'null'
+        address_components:
+          $ref: '#/components/schemas/AddressComponents'
+        address_lines:
+          type: array
+          items:
+            type: string
+        formatted_address:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        accuracy:
+          type: number
+          format: float
+        accuracy_type:
+          type: string
+        match_type:
+          type:
+          - string
+          - 'null'
+        source:
+          type: string
+        fields:
+          $ref: '#/components/schemas/FieldAppends'
+        destinations:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistanceDestination'
+        _warnings:
+          $ref: '#/components/schemas/Warnings'
+    RaceAndEthnicity:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Not Hispanic or Latino:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: White alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: Black or African American alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: American Indian and Alaska Native alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: Asian alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: Some other race alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: Two or more races':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: Two or more races: Two races including Some other race':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Not Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races':
+          $ref: '#/components/schemas/AcsStatistic'
+        Hispanic or Latino:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: White alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: Black or African American alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: American Indian and Alaska Native alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: Asian alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: Native Hawaiian and Other Pacific Islander alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: Some other race alone':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: Two or more races':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: Two or more races: Two races including Some other race':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Hispanic or Latino: Two or more races: Two races excluding Some other race, and three or more races':
+          $ref: '#/components/schemas/AcsStatistic'
+    PopulationWithVeteranStatus:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Veteran:
+          $ref: '#/components/schemas/AcsStatistic'
+        Nonveteran:
+          $ref: '#/components/schemas/AcsStatistic'
+        Male:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 18 to 34 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 18 to 34 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 18 to 34 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 35 to 54 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 35 to 54 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 35 to 54 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 55 to 64 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 55 to 64 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 55 to 64 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 65 to 74 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 65 to 74 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 65 to 74 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 75 years and over':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 75 years and over: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: 75 years and over: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        Female:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 18 to 34 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 18 to 34 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 18 to 34 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 35 to 54 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 35 to 54 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 35 to 54 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 55 to 64 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 55 to 64 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 55 to 64 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 65 to 74 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 65 to 74 years: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 65 to 74 years: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 75 years and over':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 75 years and over: Veteran':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: 75 years and over: Nonveteran':
+          $ref: '#/components/schemas/AcsStatistic'
+    GenderBreakdown:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Male:
+          $ref: '#/components/schemas/AcsStatistic'
+        Female:
+          $ref: '#/components/schemas/AcsStatistic'
+    AverageHouseholdSizeOfOccupiedHousingUnitsByTenure:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatistic'
+        Owner occupied:
+          $ref: '#/components/schemas/AcsStatistic'
+        Renter occupied:
+          $ref: '#/components/schemas/AcsStatistic'
+    LegislatorSocial:
+      type: object
+      properties:
+        rss_url:
+          type:
+          - string
+          - 'null'
+        twitter:
+          type:
+          - string
+          - 'null'
+        facebook:
+          type:
+          - string
+          - 'null'
+        youtube:
+          type:
+          - string
+          - 'null'
+        youtube_id:
+          type:
+          - string
+          - 'null'
+    MaritalStatus:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Male:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Never married':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Now married':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Now married: Married, spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Now married: Married, spouse absent':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Now married: Married, spouse absent: Separated':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Now married: Married, spouse absent: Other':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Widowed':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Male: Divorced':
+          $ref: '#/components/schemas/AcsStatistic'
+        Female:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Never married':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Now married':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Now married: Married, spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Now married: Married, spouse absent':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Now married: Married, spouse absent: Separated':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Now married: Married, spouse absent: Other':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Widowed':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Female: Divorced':
+          $ref: '#/components/schemas/AcsStatistic'
+    UKCensusRuralUrbanClassification:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type:
+          - string
+          - 'null'
+        system:
+          type: string
+        vintage:
+          type: string
+        source:
+          type: string
+    SmallCounty:
+      type: object
+      properties:
+        flag:
+          type: string
+        description:
+          type: string
+    CensusGeography:
+      type: object
+      properties:
+        census_year:
+          type: integer
+        state_fips:
+          type: string
+        county_fips:
+          type: string
+        tract_code:
+          type: string
+        block_code:
+          type: string
+        block_group:
+          type: string
+        full_fips:
+          type: string
+        place:
+          $ref: '#/components/schemas/Place'
+        metro_micro_statistical_area:
+          $ref: '#/components/schemas/MetroMicroStatisticalArea'
+        combined_statistical_area:
+          $ref: '#/components/schemas/CombinedStatisticalArea'
+        metropolitan_division:
+          $ref: '#/components/schemas/CombinedStatisticalArea'
+        county_subdivision:
+          $ref: '#/components/schemas/CountySubdivision'
+        source:
+          type: string
+    OccupancyStatus:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Occupied:
+          $ref: '#/components/schemas/AcsStatistic'
+        Vacant:
+          $ref: '#/components/schemas/AcsStatistic'
+    DistanceOrigin:
+      type: object
+      properties:
+        location:
+          type: array
+          items:
+            type: number
+            format: float
+        geocode:
+          $ref: '#/components/schemas/NestedGeocodingResult'
+    AcsSocialData:
+      type: object
+      properties:
+        Population by minimum level of education:
+          $ref: '#/components/schemas/PopulationByMinimumLevelOfEducation'
+        Population with veteran status:
+          $ref: '#/components/schemas/PopulationWithVeteranStatus'
+        Period of military service for veterans:
+          $ref: '#/components/schemas/PeriodOfMilitaryServiceForVeterans'
+        meta:
+          $ref: '#/components/schemas/AcsCategoryMeta'
+    Timezone:
+      type: object
+      properties:
+        name:
+          type: string
+        utc_offset:
+          type: integer
+        observes_dst:
+          type: boolean
+        abbreviation:
+          type: string
+        source:
+          type: string
+    UKLegislativeDistrict:
+      type: object
+      properties:
+        district_type:
+          type: string
+        gss_code:
+          type: string
+        ocd_id:
+          type: string
+        name:
+          type: string
+        is_upcoming_district:
+          type: boolean
+        source:
+          type: string
+    UKCensusInternationalTerritorialLevelArea:
+      type: object
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+    UnitsInStructure:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        1, detached unit:
+          $ref: '#/components/schemas/AcsStatistic'
+        1, attached unit:
+          $ref: '#/components/schemas/AcsStatistic'
+        2 units:
+          $ref: '#/components/schemas/AcsStatistic'
+        3 or 4 units:
+          $ref: '#/components/schemas/AcsStatistic'
+        5 to 9 units:
+          $ref: '#/components/schemas/AcsStatistic'
+        10 to 19 unit:
+          $ref: '#/components/schemas/AcsStatistic'
+        20 to 49 units:
+          $ref: '#/components/schemas/AcsStatistic'
+        50 or more units:
+          $ref: '#/components/schemas/AcsStatistic'
+        Mobile home units:
+          $ref: '#/components/schemas/AcsStatistic'
+        Boat, RV, van, etc. units:
+          $ref: '#/components/schemas/AcsStatistic'
+    AcsCategoryMeta:
+      type: object
+      properties:
+        geography:
+          type: string
+    FamilyTypeByPresenceAndAgeOfOwnChildrenUnder18Years:
+      type: object
+      properties:
+        meta:
+          $ref: '#/components/schemas/AcsTableMeta'
+        Total:
+          $ref: '#/components/schemas/AcsStatisticSimple'
+        Married-couple family:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Married-couple family: With own children of the householder under 18 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Married-couple family: With own children of the householder under 18 years: Under 6 years only':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Married-couple family: With own children of the householder under 18 years: Under 6 years and 6 to 17 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Married-couple family: With own children of the householder under 18 years: 6 to 17 years only':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Married-couple family: No own children of the householder under 18 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        Other family:
+          $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Male householder, no spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Male householder, no spouse present: With own children of the householder under 18 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years only':
+          $ref: '#/components/schemas/AcsStatistic'
+        ? 'Other family: Male householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years'
+        : $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Male householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Male householder, no spouse present: No own children of the householder under 18 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Female householder, no spouse present':
+          $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Female householder, no spouse present: With own children of the householder under 18 years':
+          $ref: '#/components/schemas/AcsStatistic'
+        ? 'Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years only'
+        : $ref: '#/components/schemas/AcsStatistic'
+        ? 'Other family: Female householder, no spouse present: With own children of the householder under 18 years: Under 6 years and 6 to 17 years'
+        : $ref: '#/components/schemas/AcsStatistic'
+        ? 'Other family: Female householder, no spouse present: With own children of the householder under 18 years: 6 to 17 years only'
+        : $ref: '#/components/schemas/AcsStatistic'
+        'Other family: Female householder, no spouse present: No own children of the householder under 18 years':
+          $ref: '#/components/schemas/AcsStatistic'
+    AcsStatisticSimple:
+      type: object
+      properties:
+        value:
+          type: integer
+        margin_of_error:
+          type: number
+    Location:
+      type: object
+      properties:
+        lat:
+          type: number
+          format: float
+        lng:
+          type: number
+          format: float
+    AddressComponents:
+      type: object
+      properties:
+        number:
+          type: string
+        predirectional:
+          type: string
+        street:
+          type: string
+        suffix:
+          type: string
+        formatted_street:
+          type: string
+        city:
+          type: string
+        county:
+          type: string
+        state_province:
+          type: string
+        postal_code:
+          type: string
+        country:
+          type: string
+        nation:
+          type: string
+        building_name:
+          type: string
+        postdirectional:
+          type: string
+  securitySchemes:
+    geocodioApiKey:
+      type: apiKey
+      name: api_key
+      in: query
+externalDocs:
+  description: Find out more about Geocodio
+  url: https://www.geocod.io

@@ -1,26 +1,23 @@
 {
   "provider": "geocodio",
   "sources": [
-    "_original/geocodio-openapi.yml"
+    "_original/geocodio-openapi.json"
   ],
   "outputs": [
-    "geocodio-batch-api-openapi.yml",
-    "geocodio-forward-geocoding-api-openapi.yml",
+    "geocodio-distance-api-openapi.yml",
+    "geocodio-distance-jobs-api-openapi.yml",
+    "geocodio-distance-matrix-api-openapi.yml",
+    "geocodio-geocode-api-openapi.yml",
     "geocodio-lists-api-openapi.yml",
-    "geocodio-reverse-geocoding-api-openapi.yml"
+    "geocodio-reverse-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "geocodio-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "geocodio-openapi.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+5 apis, 7 total)"
   ],
-  "skipped": [
-    "geocodio-batch-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "geocodio-forward-geocoding-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "geocodio-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "geocodio-reverse-geocoding-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }

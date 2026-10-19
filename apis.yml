@@ -41,50 +41,6 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.23'
 apis:
-- aid: geocodio:geocodio-batch-api
-  name: Geocodio Batch API
-  description: Geocode or reverse geocode up to 10,000 records per request.
-  humanURL: https://www.geocod.io/docs/#geocoding
-  baseURL: https://api.geocod.io/v1.7
-  tags:
-  - Batch
-  properties:
-  - type: OpenAPI
-    url: openapi/geocodio-batch-api-openapi.yml
-  - type: Documentation
-    url: https://www.geocod.io/docs/#geocoding
-  - type: APIReference
-    url: https://www.geocod.io/docs/
-  - type: Documentation
-    url: https://www.geocod.io/docs/#reverse-geocoding
-  - type: Documentation
-    url: https://www.geocod.io/docs/#batch-geocoding
-  - type: Documentation
-    url: https://www.geocod.io/docs/#fields
-  - type: Documentation
-    url: https://www.geocod.io/docs/#lists
-- aid: geocodio:geocodio-forward-geocoding-api
-  name: Geocodio Forward Geocoding API
-  description: Convert addresses into coordinates.
-  humanURL: https://www.geocod.io/docs/#geocoding
-  baseURL: https://api.geocod.io/v1.7
-  tags:
-  - Forward Geocoding
-  properties:
-  - type: OpenAPI
-    url: openapi/geocodio-forward-geocoding-api-openapi.yml
-  - type: Documentation
-    url: https://www.geocod.io/docs/#geocoding
-  - type: APIReference
-    url: https://www.geocod.io/docs/
-  - type: Documentation
-    url: https://www.geocod.io/docs/#reverse-geocoding
-  - type: Documentation
-    url: https://www.geocod.io/docs/#batch-geocoding
-  - type: Documentation
-    url: https://www.geocod.io/docs/#fields
-  - type: Documentation
-    url: https://www.geocod.io/docs/#lists
 - aid: geocodio:geocodio-lists-api
   name: Geocodio Lists API
   description: Asynchronous spreadsheet geocoding jobs.
@@ -109,16 +65,24 @@ apis:
     url: https://www.geocod.io/docs/#fields
   - type: Documentation
     url: https://www.geocod.io/docs/#lists
-- aid: geocodio:geocodio-reverse-geocoding-api
-  name: Geocodio Reverse Geocoding API
-  description: Convert coordinates into addresses.
+- name: Geocod.io
+  description: Address geocoding / reverse geocoding in bulk
+  humanURL: https://www.geocod.io/
+  tags:
+  - Geocoding
+  properties:
+  - type: Documentation
+    url: https://www.geocod.io/
+- aid: geocodio:geocodio-distance-api
+  name: Geocodio Distance API
+  description: Calculate distances between one origin and one or more destinations
   humanURL: https://www.geocod.io/docs/#geocoding
   baseURL: https://api.geocod.io/v1.7
   tags:
-  - Reverse Geocoding
+  - distance
   properties:
   - type: OpenAPI
-    url: openapi/geocodio-reverse-geocoding-api-openapi.yml
+    url: openapi/geocodio-distance-api-openapi.yml
   - type: Documentation
     url: https://www.geocod.io/docs/#geocoding
   - type: APIReference
@@ -131,14 +95,96 @@ apis:
     url: https://www.geocod.io/docs/#fields
   - type: Documentation
     url: https://www.geocod.io/docs/#lists
-- name: Geocod.io
-  description: Address geocoding / reverse geocoding in bulk
-  humanURL: https://www.geocod.io/
+- aid: geocodio:geocodio-distance-jobs-api
+  name: Geocodio Distance Jobs API
+  description: Async distance matrix and one-to-one pairs job management
+  humanURL: https://www.geocod.io/docs/#geocoding
+  baseURL: https://api.geocod.io/v1.7
   tags:
-  - Geocoding
+  - distance-jobs
   properties:
+  - type: OpenAPI
+    url: openapi/geocodio-distance-jobs-api-openapi.yml
   - type: Documentation
-    url: https://www.geocod.io/
+    url: https://www.geocod.io/docs/#geocoding
+  - type: APIReference
+    url: https://www.geocod.io/docs/
+  - type: Documentation
+    url: https://www.geocod.io/docs/#reverse-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#batch-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#fields
+  - type: Documentation
+    url: https://www.geocod.io/docs/#lists
+- aid: geocodio:geocodio-distance-matrix-api
+  name: Geocodio Distance Matrix API
+  description: >-
+    Calculate distances between multiple origins and multiple destinations, either as a full matrix or
+    as one-to-one pairs
+  humanURL: https://www.geocod.io/docs/#geocoding
+  baseURL: https://api.geocod.io/v1.7
+  tags:
+  - distance-matrix
+  properties:
+  - type: OpenAPI
+    url: openapi/geocodio-distance-matrix-api-openapi.yml
+  - type: Documentation
+    url: https://www.geocod.io/docs/#geocoding
+  - type: APIReference
+    url: https://www.geocod.io/docs/
+  - type: Documentation
+    url: https://www.geocod.io/docs/#reverse-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#batch-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#fields
+  - type: Documentation
+    url: https://www.geocod.io/docs/#lists
+- aid: geocodio:geocodio-geocode-api
+  name: Geocodio Geocode API
+  description: Geocode addresses to coordinates
+  humanURL: https://www.geocod.io/docs/#geocoding
+  baseURL: https://api.geocod.io/v1.7
+  tags:
+  - geocode
+  properties:
+  - type: OpenAPI
+    url: openapi/geocodio-geocode-api-openapi.yml
+  - type: Documentation
+    url: https://www.geocod.io/docs/#geocoding
+  - type: APIReference
+    url: https://www.geocod.io/docs/
+  - type: Documentation
+    url: https://www.geocod.io/docs/#reverse-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#batch-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#fields
+  - type: Documentation
+    url: https://www.geocod.io/docs/#lists
+- aid: geocodio:geocodio-reverse-api
+  name: Geocodio Reverse API
+  description: Reverse geocode coordinates to addresses
+  humanURL: https://www.geocod.io/docs/#geocoding
+  baseURL: https://api.geocod.io/v1.7
+  tags:
+  - reverse
+  properties:
+  - type: OpenAPI
+    url: openapi/geocodio-reverse-api-openapi.yml
+  - type: Documentation
+    url: https://www.geocod.io/docs/#geocoding
+  - type: APIReference
+    url: https://www.geocod.io/docs/
+  - type: Documentation
+    url: https://www.geocod.io/docs/#reverse-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#batch-geocoding
+  - type: Documentation
+    url: https://www.geocod.io/docs/#fields
+  - type: Documentation
+    url: https://www.geocod.io/docs/#lists
 common:
 - type: AgenticAccess
   url: agentic-access/geocodio-agentic-access.yml

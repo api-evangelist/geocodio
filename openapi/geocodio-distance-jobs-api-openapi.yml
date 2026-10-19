@@ -1,0 +1,612 @@
+openapi: 3.2.0
+info:
+  title: Geocodio Distance Jobs API
+  description: 'Geocodio''s RESTful API allows you to perform forward and reverse geocoding lookups. We support both batch requests as well as individual lookups.
+
+
+    You can also optionally ask for data appends such as timezone, Congressional districts or similar things of that nature.'
+  termsOfService: https://www.geocod.io/terms-of-use/
+  license:
+    name: Geocodio Terms of Use
+    url: https://www.geocod.io/terms-of-use/
+  contact:
+    email: hello@geocod.io
+  version: '2.0'
+servers:
+- url: https://api.geocod.io/v2
+  description: Self-Serve Geocodio API Endpoint
+- url: https://api.enterprise.geocod.io/v2
+  description: Geocodio API Endpoint for Enterprise Customers
+tags:
+- name: distance-jobs
+  description: Async distance matrix and one-to-one pairs job management
+paths:
+  /distance-jobs:
+    get:
+      tags:
+      - distance-jobs
+      summary: List distance matrix jobs
+      operationId: distanceMatrixList
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: Page number for pagination
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistanceMatrixJobCollection'
+              examples:
+                basic:
+                  summary: List distance matrix jobs for the current user
+                  value:
+                    data:
+                    - identifier: 124019f86251e4159ffb4b2dbceee4470e0283dc
+                      name: esse qui dolorem
+                      created_at: '2026-09-09T10:13:24.000000Z'
+                      origins_type: coordinates
+                      origins_count: 1
+                      destinations_type: coordinates
+                      destinations_count: 1
+                      distance_mode: driving
+                      calculation_type: matrix
+                      status: ENQUEUED
+                      download_url: null
+                      total_calculations: 0
+                      calculations_completed: 0
+                      progress: 0
+                      status_message: Waiting to be processed.
+                      time_left: null
+                      is_expired: false
+                    - identifier: 97064c5fe1a90facd18f34bc0b282a29a1c1ca42
+                      name: ab repellat et
+                      created_at: '2026-09-09T10:13:24.000000Z'
+                      origins_type: coordinates
+                      origins_count: 1
+                      destinations_type: coordinates
+                      destinations_count: 1
+                      distance_mode: driving
+                      calculation_type: matrix
+                      status: ENQUEUED
+                      download_url: null
+                      total_calculations: 0
+                      calculations_completed: 0
+                      progress: 0
+                      status_message: Waiting to be processed.
+                      time_left: null
+                      is_expired: false
+                    links:
+                      first: https://api.geocodio.dev/v2/distance-jobs?page=1
+                      last: https://api.geocodio.dev/v2/distance-jobs?page=1
+                      prev: null
+                      next: null
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      links:
+                      - url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      - url: https://api.geocodio.dev/v2/distance-jobs?page=1
+                        label: '1'
+                        page: 1
+                        active: true
+                      - url: null
+                        label: Next &raquo;
+                        page: null
+                        active: false
+                      path: https://api.geocodio.dev/v2/distance-jobs
+                      per_page: 20
+                      to: 2
+                      total: 2
+                with-warnings:
+                  summary: Listing jobs with a malformed fields parameter -- the response carries a _warnings array
+                  value:
+                    data:
+                    - identifier: 5b97e8a13254f144dbeec4c955f606350d225eb2
+                      name: voluptate odit quibusdam
+                      created_at: '2026-09-25T17:37:34.000000Z'
+                      origins_type: coordinates
+                      origins_count: 1
+                      destinations_type: coordinates
+                      destinations_count: 1
+                      distance_mode: driving
+                      calculation_type: matrix
+                      status: ENQUEUED
+                      download_url: null
+                      total_calculations: 0
+                      calculations_completed: 0
+                      progress: 0
+                      status_message: Waiting to be processed.
+                      time_left: null
+                      is_expired: false
+                    - identifier: bcb5dcddfc8a5681902ba9d6b40a7864d89701f0
+                      name: incidunt voluptas aliquid
+                      created_at: '2026-09-25T17:37:34.000000Z'
+                      origins_type: coordinates
+                      origins_count: 1
+                      destinations_type: coordinates
+                      destinations_count: 1
+                      distance_mode: driving
+                      calculation_type: matrix
+                      status: ENQUEUED
+                      download_url: null
+                      total_calculations: 0
+                      calculations_completed: 0
+                      progress: 0
+                      status_message: Waiting to be processed.
+                      time_left: null
+                      is_expired: false
+                    links:
+                      first: https://api.geocodio.dev/v2/distance-jobs?page=1
+                      last: https://api.geocodio.dev/v2/distance-jobs?page=1
+                      prev: null
+                      next: null
+                    meta:
+                      current_page: 1
+                      from: 1
+                      last_page: 1
+                      links:
+                      - url: null
+                        label: '&laquo; Previous'
+                        page: null
+                        active: false
+                      - url: https://api.geocodio.dev/v2/distance-jobs?page=1
+                        label: '1'
+                        page: 1
+                        active: true
+                      - url: null
+                        label: Next &raquo;
+                        page: null
+                        active: false
+                      path: https://api.geocodio.dev/v2/distance-jobs
+                      per_page: 20
+                      to: 2
+                      total: 2
+                    _warnings:
+                    - The fields parameter should contain a comma-separated list of fields instead of an array
+        '403':
+          description: Invalid API key, or feature not available.
+      security:
+      - geocodioApiKey: []
+    post:
+      tags:
+      - distance-jobs
+      summary: Create async distance matrix or one-to-one pairs job
+      operationId: distanceMatrixCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 255
+                origins:
+                  type: string
+                destinations:
+                  type: string
+                distance_mode:
+                  enum:
+                  - '"driving"'
+                  - '"haversine"'
+                  - '"straightline"'
+                  type:
+                  - string
+                  - 'null'
+                calculation_type:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - '"matrix"'
+                  - '"pairs"'
+                units:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - '"miles"'
+                  - '"km"'
+                max_results:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                max_distance:
+                  type:
+                  - number
+                  - 'null'
+                  minimum: 0
+                max_duration:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 0
+                min_distance:
+                  type:
+                  - number
+                  - 'null'
+                  minimum: 0
+                min_duration:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 0
+                order_by:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - '"distance"'
+                  - '"duration"'
+                sort_order:
+                  type:
+                  - string
+                  - 'null'
+                  enum:
+                  - '"asc"'
+                  - '"desc"'
+                fields:
+                  type:
+                  - string
+                  - 'null'
+                callback_url:
+                  type:
+                  - string
+                  - 'null'
+                  format: uri
+              required:
+              - name
+              - origins
+              - destinations
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistanceMatrixJobCreated'
+              examples:
+                basic:
+                  summary: Create a distance matrix job with coordinate origins and destinations
+                  value:
+                    id: 1874
+                    identifier: 61509d75c639d67f99d1997d1c082a6d3ae41d6b
+                    status: ENQUEUED
+                    name: Example Matrix Job
+                    created_at: '2026-09-09T10:13:23.000000Z'
+                    origins_count: 2
+                    destinations_count: 2
+                    calculation_type: matrix
+                    total_calculations: 4
+                with-warnings:
+                  summary: Creating a job against a superseded API version -- the response carries a _warnings array
+                  value:
+                    id: 227
+                    identifier: 49539baa306ba607b34d31d0fb701687605a7701
+                    status: ENQUEUED
+                    name: Example Matrix Job
+                    created_at: '2026-09-25T17:37:34.000000Z'
+                    origins_count: 2
+                    destinations_count: 2
+                    calculation_type: matrix
+                    total_calculations: 4
+                    _warnings:
+                    - 'There is a newer API version available, please consider upgrading to v2. See changelog here: https://www.geocod.io/docs/#changelog'
+        '201':
+          description: Resource created.
+        '422':
+          description: Validation error.
+        '403':
+          description: Invalid API key, or feature not available.
+      security:
+      - geocodioApiKey: []
+  /distance-jobs/{identifier}:
+    get:
+      tags:
+      - distance-jobs
+      summary: Get distance matrix job status
+      operationId: distanceMatrixStatus
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DistanceMatrixJob'
+              examples:
+                completed:
+                  summary: Get status of a completed distance matrix job (download_url populated)
+                  value:
+                    data:
+                      identifier: 5d8dc7f78bb5a989fdd156fd452c0efa39ced564
+                      name: dolor est ut
+                      created_at: '2026-09-09T10:13:24.000000Z'
+                      origins_type: coordinates
+                      origins_count: 1
+                      destinations_type: coordinates
+                      destinations_count: 1
+                      distance_mode: driving
+                      calculation_type: matrix
+                      status: COMPLETED
+                      download_url: https://api.geocodio.dev/v2/distance-jobs/5d8dc7f78bb5a989fdd156fd452c0efa39ced564/download
+                      total_calculations: 0
+                      calculations_completed: 0
+                      progress: 100
+                      status_message: Completed
+                      time_left: null
+                      is_expired: false
+                processing:
+                  summary: Get status of a processing distance matrix job (download_url is null)
+                  value:
+                    data:
+                      identifier: cb88c50a256e30b32c7c44e7bede3d5a27657d8f
+                      name: non doloremque aliquid
+                      created_at: '2026-09-09T10:13:24.000000Z'
+                      origins_type: coordinates
+                      origins_count: 1
+                      destinations_type: coordinates
+                      destinations_count: 1
+                      distance_mode: driving
+                      calculation_type: matrix
+                      status: PROCESSING
+                      download_url: null
+                      total_calculations: 0
+                      calculations_completed: 0
+                      progress: 0
+                      status_message: Processing distance calculations...
+                      time_left: null
+                      is_expired: false
+                with-warnings:
+                  summary: Job status with a malformed fields parameter -- the response carries a _warnings array
+                  value:
+                    data:
+                      identifier: 0c48a80f6eb3bf48d30258050ecc955c294e43ac
+                      name: libero voluptatem excepturi
+                      created_at: '2026-09-25T17:37:34.000000Z'
+                      origins_type: coordinates
+                      origins_count: 1
+                      destinations_type: coordinates
+                      destinations_count: 1
+                      distance_mode: driving
+                      calculation_type: matrix
+                      status: COMPLETED
+                      download_url: https://api.geocodio.dev/v2/distance-jobs/0c48a80f6eb3bf48d30258050ecc955c294e43ac/download
+                      total_calculations: 0
+                      calculations_completed: 0
+                      progress: 100
+                      status_message: Completed
+                      time_left: null
+                      is_expired: false
+                    _warnings:
+                    - The fields parameter should contain a comma-separated list of fields instead of an array
+        '404':
+          description: Resource not found.
+        '403':
+          description: Invalid API key, or feature not available.
+      security:
+      - geocodioApiKey: []
+    delete:
+      tags:
+      - distance-jobs
+      summary: Delete distance matrix job
+      operationId: distanceMatrixDelete
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Job deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  _warnings:
+                    $ref: '#/components/schemas/Warnings'
+        '404':
+          description: Resource not found.
+        '403':
+          description: Invalid API key, or feature not available.
+      security:
+      - geocodioApiKey: []
+  /distance-jobs/{identifier}/download:
+    get:
+      tags:
+      - distance-jobs
+      summary: Download distance matrix job results
+      operationId: distanceMatrixDownload
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Distance matrix job results as a downloadable JSON file. Streamed as an attachment with Content-Disposition set to the job name.
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid request.
+        '404':
+          description: Resource not found.
+        '403':
+          description: Invalid API key, or feature not available.
+      security:
+      - geocodioApiKey: []
+components:
+  schemas:
+    DistanceMatrixJob:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DistanceMatrixJobDetails'
+        _warnings:
+          $ref: '#/components/schemas/Warnings'
+    DistanceMatrixJobDetails:
+      type: object
+      properties:
+        identifier:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+        origins_type:
+          type: string
+        origins_count:
+          type: integer
+        destinations_type:
+          type: string
+        destinations_count:
+          type: integer
+        distance_mode:
+          type: string
+        calculation_type:
+          type: string
+        status:
+          type: string
+        download_url:
+          type:
+          - string
+          - 'null'
+        total_calculations:
+          type: integer
+        calculations_completed:
+          type: integer
+        progress:
+          type: integer
+        status_message:
+          type: string
+        time_left:
+          type:
+          - string
+          - 'null'
+        is_expired:
+          type: boolean
+    PaginationCursors:
+      type: object
+      properties:
+        first:
+          type: string
+        last:
+          type: string
+        prev:
+          type:
+          - string
+          - 'null'
+        next:
+          type:
+          - string
+          - 'null'
+    Warnings:
+      type: array
+      items:
+        type: string
+      description: Non-fatal advisories about the request — an unrecognized parameter or field name, a superseded API version, or an append that was skipped. Present only when at least one warning was raised.
+    DistanceMatrixJobCollection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/DistanceMatrixJobDetails'
+        links:
+          $ref: '#/components/schemas/PaginationCursors'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+        _warnings:
+          $ref: '#/components/schemas/Warnings'
+    DistanceMatrixJobCreated:
+      type: object
+      properties:
+        id:
+          type: integer
+        identifier:
+          type: string
+        status:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+        origins_count:
+          type: integer
+        destinations_count:
+          type: integer
+        calculation_type:
+          type: string
+        total_calculations:
+          type: integer
+        _warnings:
+          $ref: '#/components/schemas/Warnings'
+    PaginationMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        from:
+          type: integer
+        last_page:
+          type: integer
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationLink'
+        path:
+          type: string
+        per_page:
+          type: integer
+        to:
+          type: integer
+        total:
+          type: integer
+    PaginationLink:
+      type: object
+      properties:
+        url:
+          type:
+          - string
+          - 'null'
+        label:
+          type: string
+        page:
+          type:
+          - integer
+          - 'null'
+        active:
+          type: boolean
+  securitySchemes:
+    geocodioApiKey:
+      type: apiKey
+      name: api_key
+      in: query
+externalDocs:
+  description: Find out more about Geocodio
+  url: https://www.geocod.io

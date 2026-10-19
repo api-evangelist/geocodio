@@ -1,0 +1,12 @@
+{
+ "url": "https://api.geocod.io/openapi-spec.json",
+ "final": "https://api.geocod.io/openapi-spec.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 844574,
+ "sha256": "873438aa28d826dae9108e5c7bfc10e32d25511a5299c470e491a64bba17cc67",
+ "fetched_at": "2026-10-19",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "re-archived: the provider's current document replaced a stale archive (roadmap#793); the old files are in openapi/_superseded/2026-10-19-stale"
+}

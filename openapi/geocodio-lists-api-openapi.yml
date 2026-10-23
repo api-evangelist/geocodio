@@ -581,3 +581,9 @@ components:
 externalDocs:
   description: Find out more about Geocodio
   url: https://www.geocod.io
+x-provenance:
+  method: harvested
+  publisher: Geocodio
+  source: https://api.geocod.io/openapi-spec.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

@@ -1,4 +1,4 @@
-# Geocodio (geocodio)
+# Geocodio
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,135 +66,133 @@
 
 Geocodio is a US and Canada geocoding API that converts addresses to coordinates (forward), coordinates to addresses (reverse), processes batches and spreadsheet lists, and enriches results with appended data such as congressional and state legislative districts, census geographies, ACS demographics, school districts, and timezones. Authentication is via an api_key query parameter and the first 2,500 lookups per day are free.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/geocodio/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/geocodio/refs/heads/main/apis.yml)
+**Areas:** Geocoding · Reverse Geocoding · Addresses · Data Append · Census · Geospatial
 
-## Tags
+## Geocodio on APIs.io
 
-- Geocoding
-- Reverse Geocoding
-- Addresses
-- Data Append
-- Census
+Everything profiled for Geocodio is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/geocodio/](https://apis.io/providers/geocodio/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Geocodio Batch API](https://apis.io/apis/geocodio/geocodio-batch-api/) — Geocode or reverse geocode up to 10,000 records per request.
+- [Geocodio Forward Geocoding API](https://apis.io/apis/geocodio/geocodio-forward-geocoding-api/) — Convert addresses into coordinates.
+- [Geocodio Lists API](https://apis.io/apis/geocodio/geocodio-lists-api/) — Asynchronous spreadsheet geocoding jobs.
+- [Geocodio Reverse Geocoding API](https://apis.io/apis/geocodio/geocodio-reverse-geocoding-api/) — Convert coordinates into addresses.
+- [Geocod.io](https://apis.io/apis/geocodio/geocodio/) — Address geocoding / reverse geocoding in bulk
 
-## APIs
+### Published properties
 
-### Geocodio Forward Geocoding
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Converts a single address (full string or components) into latitude and longitude with normalized address components, accuracy score, and accuracy type, optionally enriched with appended data fields.
+#### MCP servers (1)
 
-- **Human URL:** [https://www.geocod.io/docs/#geocoding](https://www.geocod.io/docs/#geocoding)
-- **Base URL:** `https://api.geocod.io/v1.7`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [geocodio](https://apis.io/servers/geocodio/geocodio/)
 
-- Geocoding
-- Addresses
-- Coordinates
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://www.geocod.io/docs/#geocoding)
-- [API Reference](https://www.geocod.io/docs/)
-- [OpenAPI](openapi/geocodio-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/geocodio.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/geocodio.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Geocodio Agentic Access](https://apis.io/agentic-access/geocodio/geocodio-agentic-access/)
 
-### Geocodio Reverse Geocoding
+#### Collections (5)
 
-Converts a single latitude and longitude coordinate pair into the nearest matching street address, optionally enriched with appended data fields.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://www.geocod.io/docs/#reverse-geocoding](https://www.geocod.io/docs/#reverse-geocoding)
-- **Base URL:** `https://api.geocod.io/v1.7`
+- [Geocodio API](https://apis.io/collections/geocodio/open-geocodio/)
+- [Geocodio Batch API](https://apis.io/collections/geocodio/open-geocodio-batch-api/)
+- [Geocodio Batch Forward Geocoding API](https://apis.io/collections/geocodio/open-geocodio-forward-geocoding-api/)
+- [Geocodio Batch Lists API](https://apis.io/collections/geocodio/open-geocodio-lists-api/)
+- [Geocodio Batch Reverse Geocoding API](https://apis.io/collections/geocodio/open-geocodio-reverse-geocoding-api/)
 
-#### Tags
+#### Security (4)
 
-- Reverse Geocoding
-- Coordinates
-- Addresses
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Geocodio Authentication](https://apis.io/security/geocodio/geocodio-authentication/)
+- [Geocodio Domain Security](https://apis.io/security/geocodio/geocodio-domain-security/)
+- [Geocodio Trust Center](https://apis.io/security/geocodio/geocodio-trust-center/)
+- [Geocodio Vulnerability Disclosure](https://apis.io/security/geocodio/geocodio-vulnerability-disclosure/)
 
-- [Documentation](https://www.geocod.io/docs/#reverse-geocoding)
-- [OpenAPI](openapi/geocodio-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/geocodio.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/geocodio.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Geocodio Batch Geocoding
+Published plans, tiers and prices.
 
-Geocodes or reverse geocodes up to 10,000 addresses or coordinates in a single synchronous POST request using a JSON array or keyed JSON object.
+- [Geocodio Plans Pricing](https://apis.io/plans/geocodio/geocodio-plans-pricing/)
 
-- **Human URL:** [https://www.geocod.io/docs/#batch-geocoding](https://www.geocod.io/docs/#batch-geocoding)
-- **Base URL:** `https://api.geocod.io/v1.7`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Batch
-- Geocoding
-- Bulk
+- [Geocodio Rate Limits](https://apis.io/rate-limits/geocodio/geocodio-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://www.geocod.io/docs/#batch-geocoding)
-- [OpenAPI](openapi/geocodio-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/geocodio.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/geocodio.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Geocodio Data Appends
+- [Geocodio Finops](https://apis.io/finops/geocodio/geocodio-finops/)
 
-Enriches geocoding and reverse geocoding results via the fields parameter with congressional districts, state legislative districts, census geographies and FIPS codes, ACS demographics, school districts, timezone, ZIP+4, and Canadian electoral data; each requested field counts as an additional lookup.
+## Where to find this API
 
-- **Human URL:** [https://www.geocod.io/docs/#fields](https://www.geocod.io/docs/#fields)
-- **Base URL:** `https://api.geocod.io/v1.7`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Data Append
-- Census
-- Congressional Districts
-
-#### Properties
-
-- [Documentation](https://www.geocod.io/docs/#fields)
-- [OpenAPI](openapi/geocodio-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/geocodio.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/geocodio.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Geocodio Lists
-
-Asynchronously geocodes uploaded spreadsheet files (CSV, TSV, Excel) as a list job, with endpoints to create, list, check status, download results, and delete the job, plus optional webhook callbacks.
-
-- **Human URL:** [https://www.geocod.io/docs/#lists](https://www.geocod.io/docs/#lists)
-- **Base URL:** `https://api.geocod.io/v1.7`
-
-#### Tags
-
-- Lists
-- Spreadsheet
-- Async
-
-#### Properties
-
-- [Documentation](https://www.geocod.io/docs/#lists)
-- [OpenAPI](openapi/geocodio-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/geocodio.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/geocodio.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/Geocodio)
-- [LinkedIn](https://www.linkedin.com/company/geocodio)
 - [Website](https://www.geocod.io)
 - [Documentation](https://www.geocod.io/docs/)
-- [Plans](plans/geocodio-plans-pricing.yml)
-- [Rate Limits](rate-limits/geocodio-rate-limits.yml)
-- [Fin Ops](finops/geocodio-finops.yml)
+- [Blog](https://www.geocod.io/updates/rss.xml)
+- [GitHub](https://github.com/Geocodio)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 30.7** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 60.0 |
+| Contract quality | 48.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 50.5** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/geocodio/](https://apis.io/providers/geocodio/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Geocodio: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/geocodio/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
